@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+<?php
+    $url = isset($_SERVER['REDIRECT_URL']) ? filter_var($_SERVER['REDIRECT_URL'], FILTER_SANITIZE_SPECIAL_CHARS) : '';
+    $uri = 'http' . (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['SERVER_NAME'];
+    $headers = getallheaders();
+    $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+    $remoteIp = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+
+    $menu = 'main';
+    switch($url) {
+        case '':
+        case '/':
+            $menu = '';
+            break;
+
+        case '/pizza':
+            $menu = 'pizza';
+            break;
+
+    }
+
+?><!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,32 +40,39 @@
 		<span class="signboard"></span>
 		<ul id="infos">
 			<li class="home">
-				<a href="/index.html">НА ГЛАВНУЮ</a>
+				<a href="/">НА ГЛАВНУЮ</a>
 			</li>
 			<li class="phone">
-				<a href="/contact.html">093 713 5868</a>
+				<a href="/contact">093 713 5868</a>
 			</li>
 			<li class="address">
-				<a href="/contact.html">mail@orderpizza.dp.ua</a>
+				<a href="/contact">mail@orderpizza.dp.ua</a>
 			</li>
 		</ul>
-		<h1><a href="/index.html" id="logo2">Youssef</a></h1>
-		<!--<a href="menu.html" class="tagline"></a> -->
+		<h1><a href="/" id="logo2">Youssef</a></h1>
+        <?php if($menu) {
+        <ul id="navigation">
+            <li><a href="http://orderpizza.dp.ua/entree.html"><span>Fast food</span></a></li>
+            <li class="main current"><a href="http://orderpizza.dp.ua/menu.html"><span>Pizza</span></a></li>
+            <li><a href="http://orderpizza.dp.ua/desserts.html"><span>Desserts</span></a></li>
+            <li><a href="http://orderpizza.dp.ua/drinks.html"><span>Drinks</span></a></li>
+        </ul> <!-- /#navigation -->
+
 	</div> <!-- end of header -->
 
 	<div id="body"> <!-- start of content -->
 		<ul id="featured"> <!-- start of featured -->
 			<li class="main">
-				<a href="/menu.html"></a>
+				<a href="/pizza"></a>
 			</li>
 			<li class="drinks">
-				<a href="/drinks.html"></a>
+				<a href="/drinks"></a>
 			</li>
 			<li class="entree">
-				<a href="/entree.html"></a>
+				<a href="/entree"></a>
 			</li>
 			<li class="desserts">
-				<a href="/desserts.html"></a>
+				<a href="/desserts"></a>
 			</li>
 		</ul> <!-- end of featured -->
         <div class="mn-pizza"><b>{</b> Pizza <b>}</b></div>

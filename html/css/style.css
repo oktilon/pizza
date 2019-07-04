@@ -11,20 +11,20 @@
 }
 
 body {
-	background: #262523 url('../images/bg-body.jpg') no-repeat center top;
+	background: #262523 url('/images/bg-body.jpg') no-repeat center top;
 	color:#ffffff;
 	margin:0px;
 }
 
 #infos li.home a, #infos li.phone a, #infos li.address a,
 #footer ul.advertise li.delivery a, #footer ul.advertise li.connect a.fb, #footer ul.advertise li.connect a.twitr {
-	background: url(../images/icons.gif) no-repeat;
+	background: url(/images/icons.gif) no-repeat;
 }
 #navigation li a, #contents h2 {
-	background: url(../images/braces-left.gif) no-repeat;
+	background: url(/images/braces-left.gif) no-repeat;
 }
 #navigation li a span, #contents h2 span {
-	background: url(../images/braces-right.gif) no-repeat;
+	background: url(/images/braces-right.gif) no-repeat;
 }
 
 /*-------------------------- Header --------------------------*/
@@ -35,7 +35,7 @@ body {
 }
 #header span.signboard {
 	float: right;
-	background: url(../images/schedule.gif) no-repeat;
+	background: url(/images/schedule.gif) no-repeat;
 	display: block;
 	height: 125px;
 	width: 154px;
@@ -43,7 +43,7 @@ body {
 	z-index: 9;
 }
 #header .tagline {
-	background: url(../images/breakfast-buffet.gif) no-repeat;
+	background: url(/images/breakfast-buffet.gif) no-repeat;
 	display: inline-block;
 	height: 80px;
 	width: 462px;
