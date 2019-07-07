@@ -1,0 +1,28 @@
+      <h1 class="my-4">Задайте новий пароль</h1>
+
+      <!-- Login Form -->
+      <div class="row">
+        <div class="col-lg-8 mb-4">
+          <form id="newPasswordForm" novalidate>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label for="password" class="control-label">Пароль:</label>
+                <input type="password" class="form-control" id="password" name="password" required data-validation-required-message="Пароль не може бути пустим.">
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="control-group form-group">
+              <div class="controls">
+                <label for="passwordagain" class="control-label">Перевірка:</label>
+                <input type="password" class="form-control" id="passwordagain" data-validation-match-match="password" data-validation-match-message="Паролі не співпадають." >
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div id="success"></div>
+            <!-- For success/fail messages -->
+            <button type="submit" class="btn btn-primary" id="doSave">Змінити</button>
+          </form>
+        </div>
+
+      </div>
+      <!-- /.row -->

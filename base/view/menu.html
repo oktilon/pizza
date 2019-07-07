@@ -1,0 +1,47 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-custom flex-column">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/{{lang}}"><img src="/images/logo.png" width="94" height="30" alt="DNK"/></a>
+    <span class="dropdown-toggler float-right position-absolute mob-search d-lg-none" data-toggle="collapse" data-target="#mobSearch" aria-controls="mobSearch" aria-expanded="false">
+      <i class="fa fa-search"> </i></span>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav mr-auto">
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="cities" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%city%>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="cities">
+            <%cities%>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="languages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%lang%>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="languages">
+            <%languages%>
+          </div>
+        </li>
+
+        <%menu%>
+      <li class="nav-item">
+        <span class="navbar-call-icon"></span>
+      </li>
+      </ul>
+      <div class="form-inline my-2 my-lg-0 d-none d-lg-flex" id="search">
+        <input class="form-control search-text" type="search" placeholder="<%search%>" aria-label="<%search%>">
+        <button class="search-btn" role="button"><i class="fa fa-search"> </i></button>
+      </div>
+      <%logout%>
+    </div>
+
+    <div class="collapse bg-custom" id="mobSearch">
+      <input type="search" class="form-control search-text" placeholder="<%search%>">
+      <button class="btn btn-outline-danger" role="button"><i class="fa fa-times"> </i></button>
+    </div>
+  </div>
+</nav>

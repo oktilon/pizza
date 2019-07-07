@@ -1,0 +1,118 @@
+<style>
+#tbl_extra, #tr_xml { display:none; position:absolute; top:200px;}
+.extra { position:relative}
+/*th .fa-telegram, td .fa-telegram { color:#4091BF; }*/
+.fa-telegram { color:#4091BF; }
+th .fa-chevron-up,th .fa-chevron-down { color:#F57900 !important; }
+.bdg-uid { margin-left:20px; }
+.chek-line { margin-left:1.25rem; }
+.svg-ok-circ { stroke:#034605; stroke-width:1.5; fill:none; }
+.svg-ok-path { stroke:#034605; stroke-width:2; stroke-linecap:round; fill:none;}
+.svg-no-circ { stroke:#d80027; stroke-width:1.5; fill:none; }
+.svg-no-path { stroke:#d80027; stroke-width:2; stroke-linecap:round; fill:none; }
+
+</style>
+<h3><%title%></h3>
+<div id="events" class="table" align=left></div>
+
+<!-- Event dialog -->
+<div class="modal fade" id="event" tabindex="-1" role="dialog" aria-labelledby="eventDlgLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventDlgLabel"><%event%></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="eventEditForm" novalidate>
+                    <input type="hidden" id="event_id" />
+                    <!-- name -->
+                    <div class="form-group">
+                        <label for="name" class="control-label"><%name%></label>
+                        <%names%>
+                        <p class="help-block"></p>
+                    </div>
+
+                    <!-- alias -->
+                    <div class="form-group">
+                        <label for="alias" class="control-label"><%alias%></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-tv" aria-hidden="true"></i></span>
+                             </div>
+                            <input type="text" class="form-control" id="alias"
+                                required data-validation-required-message="<%date_req_error%>">
+                        </div>
+                        <p class="help-block"></p>
+                    </div>
+
+                    <!-- date -->
+                    <div class="form-group">
+                        <label for="dt" class="control-label"><%date%></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                             </div>
+                            <input type="text" class="form-control" id="dt"
+                                required data-validation-required-message="<%date_req_error%>">
+                        </div>
+                        <p class="help-block"></p>
+                    </div>
+
+                    <!-- place -->
+                    <div class="form-group">
+                        <label for="place" class="control-label"><%place%></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-building" aria-hidden="true"></i></span>
+                             </div>
+                            <input type="text" class="form-control bs-autocomplete" id="place"
+                                data-source="place" data-id="place_id" data-item_id="i" data-item_label="n" autocomplete="off">
+                            <input type="hidden" id="place_id">
+                        </div>
+                        <p class="help-block"></p>
+                    </div>
+
+                    <!-- owner -->
+                    <div class="form-group">
+                        <label for="owner" class="control-label"><%owner%></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-id-card" aria-hidden="true"></i></span>
+                             </div>
+                            <input type="text" class="form-control bs-autocomplete" id="owner"
+                                data-source="firms" data-id="owner_id" data-item_id="id" data-item_label="label" autocomplete="off">
+                            <input type="hidden" id="owner_id">
+                        </div>
+                        <p class="help-block"></p>
+                    </div>
+
+                    <!-- desc -->
+                    <div class="form-group">
+                        <div class="controls">
+                            <label for="desc" class="control-label"><%description%></label>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <%desc_tabs%>
+                            </ul>
+                            <div class="tab-content">
+                                <%desc_panels%>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><%close%></button>
+                <button type="submit" class="btn btn-primary" id="eventSave"><%save%></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%_dlgerror_%>
+<%_yesno_%>
