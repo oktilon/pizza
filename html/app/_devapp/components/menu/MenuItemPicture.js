@@ -3,6 +3,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import ContentList from './ContentList';
 import {
 //  Container,
   Row,
@@ -69,13 +70,9 @@ class MenuItemPicture extends React.Component {
                     {menuItem.name}
                     </span>
                 </h5>
-                <ul className="card-text">
-                    {menuItem.content.length > 0 && 
-                        menuItem.content.map(ing => {
-                            return (<li key={ing.id}>{ing.name}</li>);
-                        })
-                    }
-                </ul>
+                {menuItem.content.length > 0 && 
+                    <ContentList content={menuItem.content} />
+                }
             </CardBody>
             <CardFooter className="text-muted border-top py-3 text-left">
                 {footer}

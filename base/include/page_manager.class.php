@@ -158,11 +158,11 @@ class PageManager {
         //if(!$PG->valid()) $this->onDbError($PG, $cron);
         $this->lang_id = Language::initCache($this->lang);
 
-        if(!$cron) {
-            $this->title = _("DNK-Bilet");
-            $this->descr = _("Concert agency DNK. Since 1996");
-            $this->set('navText', $this->title);
-        }
+        // if(!$cron) {
+        //     $this->title = _("DNK-Bilet");
+        //     $this->descr = _("Concert agency DNK. Since 1996");
+        //     $this->set('navText', $this->title);
+        // }
 
         // Get current user
         $this->user = $cron ? CUser::get(0) : CUser::getCurrentUser();
@@ -197,23 +197,9 @@ class PageManager {
         catch(Exception $e) {
             self::$dbg[] = "Exception : " . $e->getMessage();
         }
-        if(!$run && $this->notPage() && $this->script) {
-            $ok  = false;
-            $event = Event::checkLink($this->script, $this->folder == 'event');
-            // PageManager::debug($this->script, 'scr');
-            // PageManager::debug($this->folder, 'fld');
-            // PageManager::debug($event->id, 'con');
-            if($event->id) {
-                $this->folder = 'event';
-                $this->script = 'index';
-                array_unshift($this->args, $event->id);
-                $run = $this->runPhpScript();
-            }
-        }
-
-        if(!$run && $this->notPage()) {
+        if(!$run && $this->notPage() && !$this->script) {
             $this->folder = 'view';
-            $this->script = '404_' . $this->lang;
+            $this->script = 'index';
         }
         $this->render();
 
