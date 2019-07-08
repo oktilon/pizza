@@ -5,15 +5,15 @@ import { Container, Row, Col } from "shards-react";
 import MainHeader from "../components/layout/MainHeader";
 import MainFooter from "../components/layout/MainFooter";
 
-const DefaultLayout = ({ path, menu, children, noHeader, noFooter }) => (
+const DefaultLayout = ({ path, routes, children, noHeader, noFooter }) => (
   <Container fluid>
     <Row>
       <Col>
-        {!noHeader && <MainHeader noNavigation={true} path={path} menu={menu} />}
+        {!noHeader && <MainHeader noNavigation={true} path={path} routes={routes} />}
         <div id="body">
           {children}
         </div>
-        {!noFooter && <MainFooter path={path} menu={menu} />}
+        {!noFooter && <MainFooter path={path} routes={routes} />}
       </Col>
     </Row>
   </Container>

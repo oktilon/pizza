@@ -4,7 +4,6 @@ import React from "react";
 import * as _ from "lodash";
 import MenuItemPicture from "./MenuItemPicture";
 import { connect } from 'react-redux';
-
 import * as backendSelectors from '../../store/backend/reducer';
 import {
   Row,
@@ -30,7 +29,7 @@ class Menu extends React.Component {
     return (
       <Row>
         {items.map((menuItem, idx) => (
-          <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+          <Col xl="3" lg="4" md="6" sm="12" className="mb-4" key={idx}>
             <MenuItemPicture menuItem={menuItem} />
           </Col>
         ))}

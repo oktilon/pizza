@@ -28,6 +28,7 @@ class Menu {
             }
         }
         $this->readContent();
+        $this->readPrices();
     }
 
     private function getProperty($k, $v) {
@@ -40,6 +41,10 @@ class Menu {
 
     public function readContent() {
         $this->content = Ingridient::getList([['for', $this->id]]);
+    }
+
+    public function readPrices() {
+        $this->prices = Price::getList([['prod = :p', 'p', $this->id]]);
     }
 
     public function save() {
@@ -73,7 +78,7 @@ class Menu {
         return $ret;
     }
 
-    public static function getList($flt = [], $ord = 'name', $lim = '') {
+    public static function getList($flt = [], $ord = 'id', $lim = '') {
         global $DB;
         self::$total = 0;
         $glue = ' AND ';

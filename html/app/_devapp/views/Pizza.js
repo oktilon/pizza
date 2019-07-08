@@ -16,16 +16,15 @@ class Pizza extends React.Component {
   }
 
   render() {
+    const { actions } = this.props;
     return (
       <Container fluid className="main-content-container px-4">
-        {/* Page Header */}
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Пицца" subtitle="" className="text-center" />
         </Row>
         <Menu 
           kind="pizza"
           row={4}
-          basket={this.props.basket}
         />
       </Container>
     );

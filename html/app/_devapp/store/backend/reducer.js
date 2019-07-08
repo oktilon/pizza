@@ -10,31 +10,31 @@ import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
     menu : [],
-    data: []
+    data: {
+        email: 'mail@orderpizza.dp.ua',
+        adr: 'г. Днепр, пр. Гагарина, 8ж',
+        phone: '+380 93 713 5868'
+    }
 });
 
 export default function reduce(state = initialState, action = {}) {
-  switch (action.type) {
-    case types.MENU_FETCHED:
-      return state.merge({
-        menu: action.data,
-      });
-    case types.DATA_FETCHED:
-      return state.merge({
-        data: action.data
-      });
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case types.MENU_FETCHED:
+            return state.merge({
+                menu: action.menu,
+                data: action.data,
+            });
+        default:
+            return state;
+    }
 }
 
 // selectors
 
 export function getMenu(state) {
-  console.log("getMenu", state);
-  return state.backend.menu;
+    return state.backend.menu;
 }
 
 export function getContactsData(state) {
-  return state.data;
+    return state.backend.data;
 }

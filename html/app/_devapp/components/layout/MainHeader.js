@@ -1,44 +1,87 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink  } from "react-router-dom";
+import { connect } from 'react-redux';
+import * as backendSelectors from '../../store/backend/reducer';
+import * as cartSelectors from '../../store/cart/reducer';
 import MenuLocations from "../../MenuLocations";
 import TopNav from "./TopNav";
-//import { cx } from "classnames";
+import { NavLink } from 'react-router-dom';
+import {
+	Nav,
+	NavItem,
+	Badge,
+  } from "shards-react";
 
-const MainHeader = ({ noNavigation, path, menu }) => (
-	<div id="header">
-		<span className="signboard"></span>
-		<ul id="infos">
-			<li className="home">
-				<NavLink to="/">НА ГЛАВНУЮ</NavLink>
-			</li>
-			<li className="phone">
-				<NavLink to="/contacts">093 713 5868</NavLink>
-			</li>
-			<li className="address">
-				<NavLink to="/contacts">mail@orderpizza.dp.ua</NavLink>
-			</li>
-		</ul>
-		<h1><a href="/" id="logo">Youssef</a></h1>
-        { !noNavigation &&
-			<ul id="navigation">
-				{menu.filter( x => x.menu == MenuLocations.Top)
-					.map( (item, ix) => (
-					<TopNav item={item} path={path} key={ix} />
-				))}
-			</ul>
-		}
-	</div>
-);
+class MainHeader extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.handleScroll = this.handleScroll.bind(this);
+	}
+
+	handleScroll(ev) {
+		console.log(ev);
+	}
+
+	render() {
+		const { noNavigation, path, routes, data, cartCnt } = this.props;
+		const badge = cartCnt > 0 && <Badge pill theme="primary">{cartCnt}</Badge>;
+		return (
+			<div id="header">
+				<span className="signboard"></span>
+				<Nav id="infos">
+					<NavItem className="home">
+						<NavLink to="/">НА ГЛАВНУЮ</NavLink>
+					</NavItem>
+					<NavItem className="phone">
+						<NavLink to="/contacts">{data.phone}</NavLink>
+					</NavItem>
+					<NavItem className="address">
+						<NavLink to="/contacts">{data.email}</NavLink>
+					</NavItem>
+					<NavItem className="basket">
+						<NavLink to="/order">
+							{badge}
+						</NavLink>
+					</NavItem>
+				</Nav>
+				<div className="sticky-basket" onScroll={this.handleScroll}>
+					{badge}
+				</div>
+				<h1><a href="/" id="logo">Youssef</a></h1>
+				{ !noNavigation &&
+					<ul id="navigation2">
+						{routes.filter( x => x.menu == MenuLocations.Top)
+							.map( (item, ix) => (
+							<TopNav item={item} path={path} key={ix} />
+						))}
+					</ul>
+				}
+			</div>
+		);
+	}
+}
 
 MainHeader.propTypes = {
 	noNavigation: PropTypes.bool,
 	path: PropTypes.string,
+	routes: PropTypes.array
 };
   
 MainHeader.defaultProps = {
 	noNavigation: false,
-	path: ''
+	path: '',
+	routes: []
 };
 
-export default MainHeader;
+function mapStateToProps(state) {
+	const data = backendSelectors.getContactsData(state);
+	const cartCnt = cartSelectors.getCartCount(state);
+	return {
+		data,
+		cartCnt
+	};
+  }
+  
+export default connect(mapStateToProps)(MainHeader);
+  

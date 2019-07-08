@@ -10,24 +10,25 @@ import * as types from './actionTypes';
 import axios from 'axios';
 
 export function fetchMenu() {
-  return (dispatch, getState) => {
-    try {
-        axios.get('/menu')
-        .then(function (response) {
-          // handle success
-          const data = response.data.data;
-        //   console.log(data);
-          dispatch({ type: types.MENU_FETCHED, data });
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    return (dispatch, getState) => {
+        try {
+            axios.get('/menu')
+                .then(function (response) {
+                    // handle success
+                    const data = response.data.data;
+                    const menu = response.data.menu;
+                    //   console.log(data);
+                    dispatch({ type: types.MENU_FETCHED, menu, data });
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 }

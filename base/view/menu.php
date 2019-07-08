@@ -1,7 +1,11 @@
 <?php
     $ret = new ScriptAnswer();
 
-    $ret->data = Menu::getList();
+    $info = $DB->prepare("SELECT * FROM info")->execute_all();
+
+    $ret->menu = Menu::getList();
+    $ret->data = [];
+    foreach($info as $row) $ret->data[$row['id']] = $row['val'];
     $ret->ok();
 
     $this->setJson($ret);

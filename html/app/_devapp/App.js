@@ -12,6 +12,7 @@ import "./shards-dashboards.1.1.0.min.css";
 class AppBase extends React.Component {
 
   componentDidMount() {
+    console.log('AppBase did mount');
     this.props.dispatch(backendActions.fetchMenu());
   }
 
@@ -28,8 +29,8 @@ class AppBase extends React.Component {
               exact={route.exact}
               component={props => {
                 return (
-                  <route.layout path={pathName} menu={routes} {...props}>
-                    <route.component basket={false} {...props} />
+                  <route.layout path={pathName} routes={routes} {...props}>
+                    <route.component {...props} />
                   </route.layout>
                 );
               }}

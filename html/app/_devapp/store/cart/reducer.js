@@ -13,38 +13,53 @@ const initialState = Immutable({
 });
 
 export default function reduce(state = initialState, action = {}) {
-  switch (action.type) {
-    case types.ITEM_SELECTED:
-      const id = action.item.id;
-      const name = action.item.title;
-      let upd = state.cart.slice();
-      if(_.has(upd, id)) {
-        upd[id].count++;
-      } else {
-        upd.concat({
-          count: 1,
-          name: name
-        });
-      }
-      return state.merge({
-        cart: upd
-      });
-      
-    case types.ITEM_REMOVED:
-      return state.merge({
-        cart: action.data
-      });
-    default:
-      return state;
-  }
+    var id, has, cart;
+    switch (action.type) {
+        case types.ITEM_ADDED:
+            id = action.data.id;
+            has = false;
+            cart = state.cart.map(it => {
+                if(it.id == id) has = true;
+                return it.id == id ? {
+                    cnt: it.cnt + 1,
+                    id: id,
+                    prod: action.data.prod,
+                    price: action.data.price
+                } : it;
+            });
+            if(!has) {
+                cart = cart.concat([{
+                    cnt: 1,
+                    id: id,
+                    prod: action.data.prod,
+                    price: action.data.price
+                }]);
+            }
+            return state.merge({
+                cart: cart
+            });
+          
+        case types.ITEM_REMOVED:
+            id = action.data.id;
+            has = false;
+            cart = _.filter(
+                _.map(state.cart, it => {
+                    return it.id == id ? null : it;
+                }), x => x != null);
+            return state.merge({
+                cart: cart
+            });
+        default:
+            return state;
+    }
 }
 
 // selectors
 
 export function getCart(state) {
-  return state.cart;
+    return state.cart.cart;
 }
 
 export function getCartCount(state) {
-  return state.cart.length;
+    return _.reduce(state.cart.cart, (sum, it) => sum + it.cnt, 0);
 }
