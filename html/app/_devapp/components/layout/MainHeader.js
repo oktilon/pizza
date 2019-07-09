@@ -28,7 +28,7 @@ class MainHeader extends React.Component {
 		const badge = cartCnt > 0 && <Badge pill theme="primary">{cartCnt}</Badge>;
 		return (
 			<div id="header">
-				<span className="signboard"></span>
+				<span className="signboard visible-top"></span>
 				<Nav id="infos">
 					<NavItem className="home">
 						<NavLink to="/">НА ГЛАВНУЮ</NavLink>
@@ -67,7 +67,7 @@ MainHeader.propTypes = {
 	path: PropTypes.string,
 	routes: PropTypes.array
 };
-  
+
 MainHeader.defaultProps = {
 	noNavigation: false,
 	path: '',
@@ -82,6 +82,6 @@ function mapStateToProps(state) {
 		cartCnt
 	};
   }
-  
+
 export default connect(mapStateToProps)(MainHeader);
-  
+

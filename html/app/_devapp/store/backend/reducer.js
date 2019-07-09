@@ -46,3 +46,7 @@ export function getMenu(state) {
 export function getContactsData(state) {
     return state.backend.data;
 }
+
+export function getUser(state) {
+    return state.backend.user;
+}

@@ -32,21 +32,31 @@ body {
   margin-left: 20px !important;
 }
 
-@media only screen and (max-width: 780px) {
+.bottom-collapse {
+  display: flex;
+}
+
+.visible-top {
+  display: inherit !important;
+}
+
+@media (max-width: 850px) {
+  .visible-top {
+      display: none !important;
+  }
+}
+@media (max-width: 780px) {
   .bottom-collapse {
-      display: flex;
+      display: none !important;
   }
 }
 
-.bottom-collapse {
-  display: none !important;
-}
 
 /*-------------------------- Header --------------------------*/
 #header{
   margin: 0px auto 35px;
   position: relative;
-  
+
   span.signboard {
     float: right;
     background: url(/images/schedule.gif) no-repeat;
@@ -68,14 +78,14 @@ body {
   display: inline-block;
   margin: 0px 0px 20px;
   padding: 20px 0px 0px 10px;
-  
+
   li {
     float: left;
     font-family: $font-top-menu;
     font-size: 17px;
     list-style-type: none;
     padding: 0px 10px;
-  
+
     a {
       background: url(/images/icons.png) no-repeat;
       color:#ffffff;
@@ -88,7 +98,7 @@ body {
       .badge {
         position: relative;
         left: -20px;
-        top: -10px;      
+        top: -10px;
       }
     }
 
@@ -156,7 +166,7 @@ body {
       padding-left: 16px;
       text-decoration: none;
       @extend %brace-left;
-    
+
       span {
         background-position: right -90px;
         display: inline-block;
@@ -173,7 +183,7 @@ body {
     a:hover span {
       @extend %navigation-right;
     }
-  }  
+  }
 
   .current a {
     @extend %navigation-left;
@@ -215,14 +225,14 @@ margin: 0px auto 50px;
     a:hover div {
       background: #136192;
       color: #fff;
-    }    
+    }
   }
 
   li.pizza a {
     background: url(/images/pizza.png) no-repeat 0 0;
     height: 335px;
     width: 540px;
-    
+
     div {
       top:140px;
       left:11px;
@@ -235,7 +245,7 @@ margin: 0px auto 50px;
     background: url(/images/drinks.png) no-repeat 0 0;
     height: 335px;
     width: 420px;
-    
+
     div {
       top: 200px;
       left: 230px;
@@ -248,7 +258,7 @@ margin: 0px auto 50px;
     background: url(/images/fast-food.png) no-repeat 0 0;
     height: 255px;
     width: 540px;
-    
+
     div {
       top: 50px;
       left: -60px;
@@ -261,14 +271,26 @@ margin: 0px auto 50px;
     background: url(/images/desserts.png) no-repeat 0 0;
     height: 255px;
     width: 420px;
-    
+
     div {
       top: 90px;
       left: 220px;
       width: 228px;
       transform: rotate(7deg);
-    }    
+    }
   }
+}
+
+#login-page {
+  background-color: #ffffffcc;
+  color: #373737;
+  line-height: 24px;
+  border-top: 2px outset #393939;
+  border-bottom: 2px inset #393939;
+  margin: 150px auto auto auto;
+  padding: 22px 0px;
+  text-align: center;
+  width: 450px;
 }
 
 #contents {
@@ -329,7 +351,7 @@ margin: 0px auto 50px;
       width: 510px;
       margin: 0px 0px 20px 10px;
       text-align: left;
-    
+
       td {
         padding-right: 20px;
         vertical-align: top;
@@ -355,7 +377,7 @@ margin: 0px auto 50px;
   display: inline-block;
   height: 401px;
   width: 960px;
-  
+
   table {
     float: left;
     width: 940px;
@@ -367,12 +389,12 @@ margin: 0px auto 50px;
     span {
       display: block;
     }
-    
+
     td {
       line-height: 24px;
       padding: 6px 5px;
       vertical-align: center;
-    
+
       textarea {
         height: 179px;
         width: 100%;
@@ -619,7 +641,7 @@ display: block;
       padding-right: 16px;
       padding-top: 6px;
       text-shadow: 1px 1px 1px #252525;
-    }    
+    }
   }
 
   div.navigation {

@@ -1,5 +1,5 @@
 // Layout Types
-import { DefaultLayout, ContentLayout } from "./layouts";
+import { DefaultLayout, ContentLayout, LoginLayout } from "./layouts";
 
 // Constants
 import MenuLocations from './MenuLocations';
@@ -12,6 +12,7 @@ import Drinks from "./views/Drinks";
 import FastFood from "./views/FastFood";
 import Contacts from "./views/Contacts";
 import Order from "./views/Order";
+import Login from "./views/Login";
 
 export default [
   {
@@ -58,10 +59,10 @@ export default [
     menu: MenuLocations.Bottom
   },
   {
-    path: "/blog",
-    layout: ContentLayout,
-    component: Order,
-    title: 'Блог',
+    path: "/login",
+    layout: LoginLayout,
+    component: Login,
+    title: 'Вход',
     menu: MenuLocations.Bottom
   },
   {

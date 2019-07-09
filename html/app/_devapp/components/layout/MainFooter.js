@@ -27,12 +27,12 @@ const MainFooter = ({ path, routes }) => (
 			</Col>
 		</Row>
 		<Row className="navigation bottom-collapse">
-			{routes.filter(x=>x.routes == MenuLocations.Bottom)
+			{routes.filter(x=>x.menu == MenuLocations.Bottom)
 				.map( (item, ix) => (
 					<BottomNav item={item} path={path} key={ix} />
 				))
 			}
-		</Row>		
+		</Row>
 		<Row>
 			<span>© Copyright 2017. All Rights Reserved.</span>
 		</Row>
