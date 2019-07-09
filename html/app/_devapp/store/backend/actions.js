@@ -32,3 +32,29 @@ export function fetchMenu() {
         }
     };
 }
+
+export function loginUser(usr, pwd) {
+    return (dispatch, getState) => {
+        try {
+            axios.post('/dologin', {
+                l: usr,
+                h: btoa(pwd)
+            })
+                .then(function (response) {
+                    // handle success
+                    if(response.data.status == 'ok') {
+                        dispatch({ type: types.USER_LOGGED, user: response.data.user });
+                    }
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+}

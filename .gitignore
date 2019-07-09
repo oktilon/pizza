@@ -4,6 +4,7 @@
 /html/app/node_modules
 /html/app/.pnp
 /html/app.pnp.js
+/vendor/*
 
 # testing
 /html/app/coverage

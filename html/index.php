@@ -3,6 +3,7 @@
     $DS = DIRECTORY_SEPARATOR;
     define('PATH_ROOT', dirname(__FILE__));
     define('PATH_BASE', dirname(dirname(__FILE__)) . $DS . 'base');
+    define('PATH_VENDOR', dirname(dirname(__FILE__)) . $DS . 'vendor');
     define('PATH_TEXT', dirname(dirname(__FILE__)) . $DS . 'gettext' . $DS . 'i18n');
 
     // require_once PATH_BASE . $DS . 'error_handler.php';
@@ -28,6 +29,7 @@
 
     require_once PATH_BASE . $DS . 'config.php';
     require_once PATH_BASE . $DS . 'autoload.php';
+    require_once PATH_VENDOR . $DS . 'autoload.php';
 
     $DB = null;
     $url = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : '';

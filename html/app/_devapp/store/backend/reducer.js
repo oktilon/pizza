@@ -14,6 +14,10 @@ const initialState = Immutable({
         email: 'mail@orderpizza.dp.ua',
         adr: 'г. Днепр, пр. Гагарина, 8ж',
         phone: '+380 93 713 5868'
+    },
+    user: {
+        id: 0,
+        name: 'Guest'
     }
 });
 
@@ -23,6 +27,10 @@ export default function reduce(state = initialState, action = {}) {
             return state.merge({
                 menu: action.menu,
                 data: action.data,
+            });
+        case types.USER_LOGGED:
+            return state.merge({
+                user: action.user,
             });
         default:
             return state;
