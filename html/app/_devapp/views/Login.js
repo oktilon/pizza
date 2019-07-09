@@ -2,7 +2,7 @@
 
 import React from "react";
 import cx from "classnames";
-import { NavLink  } from "react-router-dom";
+import { Redirect  } from "react-router-dom";
 import MaskedInput from 'react-maskedinput';
 import { connect } from 'react-redux';
 import * as backendSelectors from '../store/backend/reducer';
@@ -30,14 +30,15 @@ class Login extends React.Component {
 
     this.onChangeLogin = this.onChangeLogin.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.onLogIn = this.onLogIn.bind(this);
+    this.onLogOut = this.onLogOut.bind(this);
 
     this.state = {
         login: '',
         password: '',
         showWarning: false,
         showError: false,
-        logged: true
+        justLogged: false
     };
   }
 
@@ -53,14 +54,25 @@ class Login extends React.Component {
     this.setState({password:val, showError:false, showWarning: warn});
   }
 
-  onSubmitForm(ev) {
+  onLogIn(ev) {
     ev.preventDefault();
     const { login, password } = this.state;
     if(login == '' || password == '') {
         this.setState({showWarning:true, showError:false});
         return;
     }
-    this.dispatch(backendActions.loginUser(usr, pwd));
+    this.setState({justLogged: true});
+    this.props.dispatch(backendActions.loginUser(login, password));
+  }
+
+  onLogOut(ev) {
+    ev.preventDefault();
+    const { login, password } = this.state;
+    if(login == '' || password == '') {
+        this.setState({showWarning:true, showError:false});
+        return;
+    }
+    this.props.dispatch(backendActions.logoutUser());
   }
 
   render() {
@@ -69,12 +81,18 @@ class Login extends React.Component {
         password,
         showWarning,
         showError,
-        logged
+        justLogged
     } = this.state;
 
     const {
         user
     } = this.props;
+
+    const logged = user.id > 0;
+
+    if(logged && justLogged) {
+        return (<Redirect to="/admin"/>);
+    }
 
     let body = false;
     if(logged) {
@@ -97,7 +115,7 @@ class Login extends React.Component {
             <ListGroupItem className="p-3">
                 <Row>
                     <Col>
-                        <Form onSubmit={this.onSubmitForm} >
+                        <Form onSubmit={this.onLogIn} >
                             <FormGroup>
                                 <label htmlFor="feLogin">Имя</label>
                                 <FormInput

@@ -172,6 +172,9 @@ class PageManager {
         // Read page info from DB
         $this->readPage();
 
+        $body = file_get_contents("php://input");
+        $this->request = json_decode($body);
+
         // Show login page, if not authorized
         if($this->user->id == 0 && !$this->allowAll() && !$this->isScript) {
             //$this->renderLogin(); - it's Ok
@@ -315,8 +318,6 @@ class PageManager {
 
     public function allowAll() {
         if($this->folder == 'api') {
-            $body = file_get_contents("php://input");
-            $this->request = json_decode($body);
             return true;
         }
         if(in_array($this->script, ['dologin', 'logout', 'newpwd', 'info', 'restore'])) return true;

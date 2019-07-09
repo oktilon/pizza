@@ -8,17 +8,23 @@ import _ from 'lodash';
 import * as types from './actionTypes';
 import Immutable from 'seamless-immutable';
 
+const guestUser = {
+    id: 0,
+    sub: '',
+    name: 'Guest',
+    roles: [],
+    iat: 0,
+    exp: 0
+};
+
 const initialState = Immutable({
     menu : [],
     data: {
-        email: 'mail@orderpizza.dp.ua',
-        adr: 'г. Днепр, пр. Гагарина, 8ж',
-        phone: '+380 93 713 5868'
+        email : 'mail@orderpizza.dp.ua',
+        adr   : 'г. Днепр, пр. Гагарина, 8ж',
+        phone : '+380 93 713 5868'
     },
-    user: {
-        id: 0,
-        name: 'Guest'
-    }
+    user: guestUser
 });
 
 export default function reduce(state = initialState, action = {}) {
@@ -31,6 +37,10 @@ export default function reduce(state = initialState, action = {}) {
         case types.USER_LOGGED:
             return state.merge({
                 user: action.user,
+            });
+        case types.USER_LOGGED_OUT:
+            return state.merge({
+                user: guestUser,
             });
         default:
             return state;
@@ -48,5 +58,6 @@ export function getContactsData(state) {
 }
 
 export function getUser(state) {
+    // verify jwt ?
     return state.backend.user;
 }

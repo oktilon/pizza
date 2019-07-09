@@ -1,8 +1,8 @@
 <?php
     use \Firebase\JWT\JWT;
     $ret = new ScriptAnswer();
-    $pass  = isset($_POST['h']) ? $_POST['h'] : base64_encode('fJYkscCuZX');
-    $login = isset($_POST['l']) ? $_POST['l'] : 'kristina';
+    $pass  = property_exists($this->request, 'h') ? $this->request->h : '';//base64_encode('fJYkscCuZX');
+    $login = property_exists($this->request, 'l') ? $this->request->l : '';
 
     $ret->jwt = '';
     $usr = CUser::loginUser($login, $pass, $this);
@@ -13,6 +13,7 @@
         $ret->ok();
 
         $token = array(
+            "id"   => $usr->id,
             "sub"  => $usr->login,
             "name" => $usr->first_name,
             "roles" => $usr->rights,

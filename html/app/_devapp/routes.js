@@ -13,6 +13,7 @@ import FastFood from "./views/FastFood";
 import Contacts from "./views/Contacts";
 import Order from "./views/Order";
 import Login from "./views/Login";
+import Admin from "./views/Admin";
 
 export default [
   {
@@ -63,7 +64,16 @@ export default [
     layout: LoginLayout,
     component: Login,
     title: 'Вход',
-    menu: MenuLocations.Bottom
+    menu: MenuLocations.Bottom,
+    user: false
+  },
+  {
+    path: "/admin",
+    layout: ContentLayout,
+    component: Admin,
+    title: 'Админ',
+    menu: MenuLocations.Bottom,
+    user: true
   },
   {
     path: "/about",

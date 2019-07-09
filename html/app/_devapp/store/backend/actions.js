@@ -9,6 +9,18 @@ import _ from 'lodash';
 import * as types from './actionTypes';
 import axios from 'axios';
 
+var r = require('jsrsasign');
+
+const pubKey = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmcWNN9lIyRt0E1hfRmhK
+thX+waWdSOp6iwwxejl+ED27aP5KCoe4XDUXPXr7NQ4qSBjTTBM0sI7uMzC7c0PW
+H0Sik0Zfe/YL1G9arlYkrVYxUjdfdLonyb4eB7Ze70jwK2lqlhswlPeTYbJrhV/i
+AjXK+87tl1a+ymMX4rQzc6PxHdZbBHAiEPiRLieG/5q6rZXsaO03bJmkriZKs8K5
+P6gcE1Kl+i0djuMgGa0m/tRZUWOH0jPlqbH2giIcvC2bv9RfwiqGYEMKVkcZRPH+
+CGdKsjwV70WxjZIDvY+f9jl6m/k317KILxeqszP0SIzLU/p2xBoZNI3ZH32SxdGO
+VQIDAQAB
+-----END PUBLIC KEY-----`;
+
 export function fetchMenu() {
     return (dispatch, getState) => {
         try {
@@ -43,7 +55,11 @@ export function loginUser(usr, pwd) {
                 .then(function (response) {
                     // handle success
                     if(response.data.status == 'ok') {
-                        dispatch({ type: types.USER_LOGGED, user: response.data.user });
+                        if(r.jws.JWS.verify(response.data.jwt, pubKey, ['RS256'])) {
+                            const obj = r.jws.JWS.parse(response.data.jwt);
+                            console.log('valid', obj);
+                            dispatch({ type: types.USER_LOGGED, user: obj.payloadObj });
+                        }
                     }
                 })
                 .catch(function (error) {
@@ -57,4 +73,14 @@ export function loginUser(usr, pwd) {
             console.error(error);
         }
     };
+}
+
+export function logoutUser() {
+    return (dispatch, getState) => {
+        try {
+            dispatch({ type: types.USER_LOGGED_OUT });
+        } catch (error) {
+            console.error(error);
+        }
+    };   
 }
