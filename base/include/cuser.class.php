@@ -158,7 +158,7 @@ class CUser {
         if(count($ids) > 0) {
             $val = [];
             $par = [];
-            PageManager::$dbg[] = "saveTables($tbl, $field, " . json_encode($ids) . ")";
+            //PageManager::$dbg[] = "saveTables($tbl, $field, " . json_encode($ids) . ")";
             foreach($ids as $i => $v) {
                 $val[] = "(:u, :v{$i})";
                 $par["v{$i}"] = $v;
@@ -200,7 +200,7 @@ class CUser {
     }
 
     public function userHash($pwd) {
-        return md5(sprintf(USER_HASH_FMT, $this->login, $pwd));
+        return md5(sprintf(base64_decode(USER_HASH_FMT), $this->login, $pwd));
     }
 
     public function checkHash($pwd) {
@@ -276,7 +276,7 @@ class CUser {
 
         $username = $usr;
 
-        if(preg_match('/^(.+)@.+/', $usr, $m)) $username = $m[1];
+        //if(preg_match('/^(.+)@.+/', $usr, $m)) $username = $m[1];
 
         $pwd = base64_decode($hash);
         $u = self::verifyLocalUser($username, $pwd);
@@ -293,7 +293,7 @@ class CUser {
         // $u->setSession();
         // $u->logUserLogin();
 
-        return 'ok';
+        return $u;
     }
 
     public static function verifyLocalUser($username, $password) {

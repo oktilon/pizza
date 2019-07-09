@@ -190,6 +190,7 @@ class PageManager {
 
         // $this->checkPassword();
 
+        $run = false;
         try {
             $run = $this->runPhpScript();
             //self::debug($this, 'Me');
