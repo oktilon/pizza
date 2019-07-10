@@ -5,12 +5,13 @@ import ContentHeader from "./ContentHeader";
 import ContentRow from "./ContentRow";
 import ImageCell from './ImageCell';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faChevronDown, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from "shards-react";
+import InlineTextEdit from '../common/InlineTextEdit';
 
 class MenuRow extends React.Component {
     render() {
-        const { item, opened, isPrice, openItem, addNewPrice } = this.props;
+        const { item, opened, isPrice, openItem, addNewPrice, flags } = this.props;
         var childBody = false;
         var childHead = false;
         var openPrices = !opened || (opened && !isPrice);
@@ -35,14 +36,55 @@ class MenuRow extends React.Component {
             <tr>
                 <td><ImageCell menu img={item.pic} /></td>
                 <td>{item.kind}</td>
-                <td>{item.name}</td>
-                <td>{item.desc}</td>
-                <td>{item.flags}</td>
                 <td>
-                    {openPrices && <Button size="sm" outline theme="info" onClick={()=>{openItem(item.id, true)}}><FontAwesomeIcon icon={faChevronDown} />Цены</Button>}
-                    {!openPrices && <Button size="sm" outline theme="warning" onClick={()=>{openItem(null, true)}}><FontAwesomeIcon icon={faChevronUp} />Цены</Button>}
-                    {openContent && <Button size="sm" outline theme="primary" onClick={()=>{openItem(item.id, false)}}><FontAwesomeIcon icon={faChevronDown} />Состав</Button>}
-                    {!openContent && <Button size="sm" outline theme="warning" onClick={()=>{openItem(null, false)}}><FontAwesomeIcon icon={faChevronUp} />Состав</Button>}
+                    <InlineTextEdit
+                        //validate={this.customValidateText}
+                        activeClassName="editing"
+                        text={item.name}
+                        paramName="message"
+                        //change={this.dataChanged}
+                        style={{
+                            backgroundColor: 'yellow',
+                            minWidth: 150,
+                            display: 'inline-block',
+                            margin: 0,
+                            padding: 0,
+                            fontSize: 15,
+                            outline: 0,
+                            border: 0
+                        }}                
+                        
+                    />
+                </td>
+                <td>{item.desc}</td>
+                <td>
+                    {_.map(flags, f => {
+                        return item.flags > 0 && f.flags > 0 && (item.flags & f.flags) && <FontAwesomeIcon className="text-danger" key={f.id} icon={f.ico} />
+                    })}
+                </td>
+                <td>
+                    <Button 
+                        size="sm" 
+                        outline 
+                        theme="info" 
+                        onClick={()=>{
+                            openItem(openPrices ? item.id : null, true);
+                        }}
+                    >
+                        <FontAwesomeIcon icon={openPrices ? faChevronDown : faChevronUp} className="mr-2" />
+                        Цены
+                    </Button>
+                    <Button 
+                        size="sm" 
+                        outline 
+                        theme="primary" 
+                        onClick={()=>{
+                            openItem(openContent ? item.id : null, false);
+                        }}
+                    >
+                        <FontAwesomeIcon icon={openContent ? faChevronDown : faChevronUp} className="mr-2" />
+                        Состав
+                    </Button>
                 </td>
             </tr>
             {opened && <tr><td colSpan={6}>{subGrid}</td></tr>}

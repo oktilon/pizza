@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import * as backendSelectors from '../store/backend/reducer';
 import * as cartSelectors from '../store/cart/reducer';
 
+import Popup from "react-popup";
+
 import { Container, Card } from "shards-react";
 
 import MenuCard from "../components/admin/MenuCard";
@@ -55,6 +57,7 @@ class Admin extends React.Component {
 
         return (<Container fluid className="main-content-container px-4">
             {pageItem}
+            <Popup />
         </Container>);
     }
 }
