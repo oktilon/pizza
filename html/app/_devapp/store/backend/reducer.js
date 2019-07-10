@@ -19,6 +19,7 @@ const guestUser = {
 
 const initialState = Immutable({
     menu : [],
+    ingr : [],
     data: {
         email : 'mail@orderpizza.dp.ua',
         adr   : 'г. Днепр, пр. Гагарина, 8ж',
@@ -32,6 +33,7 @@ export default function reduce(state = initialState, action = {}) {
         case types.MENU_FETCHED:
             return state.merge({
                 menu: action.menu,
+                ingr: action.ingr,
                 data: action.data,
             });
         case types.USER_LOGGED:
@@ -51,6 +53,10 @@ export default function reduce(state = initialState, action = {}) {
 
 export function getMenu(state) {
     return state.backend.menu;
+}
+
+export function getIngridients(state) {
+    return state.backend.ingr;
 }
 
 export function getContactsData(state) {

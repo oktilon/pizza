@@ -29,8 +29,10 @@ export function fetchMenu() {
                     // handle success
                     const data = response.data.data;
                     const menu = response.data.menu;
+                    const ingr = response.data.ingr;
                     //   console.log(data);
-                    dispatch({ type: types.MENU_FETCHED, menu, data });
+                    dispatch({
+                        type: types.MENU_FETCHED, menu, data, ingr });
                 })
                 .catch(function (error) {
                     // handle error
@@ -57,7 +59,6 @@ export function loginUser(usr, pwd) {
                     if(response.data.status == 'ok') {
                         if(r.jws.JWS.verify(response.data.jwt, pubKey, ['RS256'])) {
                             const obj = r.jws.JWS.parse(response.data.jwt);
-                            console.log('valid', obj);
                             dispatch({ type: types.USER_LOGGED, user: obj.payloadObj });
                         }
                     }
@@ -82,5 +83,5 @@ export function logoutUser() {
         } catch (error) {
             console.error(error);
         }
-    };   
+    };
 }

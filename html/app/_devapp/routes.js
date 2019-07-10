@@ -1,5 +1,5 @@
 // Layout Types
-import { DefaultLayout, ContentLayout, LoginLayout } from "./layouts";
+import { DefaultLayout, ContentLayout, LoginLayout, AdminLayout } from "./layouts";
 
 // Constants
 import MenuLocations from './MenuLocations';
@@ -13,7 +13,6 @@ import FastFood from "./views/FastFood";
 import Contacts from "./views/Contacts";
 import Order from "./views/Order";
 import Login from "./views/Login";
-import Admin from "./views/Admin";
 
 export default [
   {
@@ -69,8 +68,8 @@ export default [
   },
   {
     path: "/admin",
-    layout: ContentLayout,
-    component: Admin,
+    layout: AdminLayout,
+    component: false,
     title: 'Админ',
     menu: MenuLocations.Bottom,
     user: true

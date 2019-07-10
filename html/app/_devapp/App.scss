@@ -293,6 +293,15 @@ margin: 0px auto 50px;
   width: 450px;
 }
 
+.main-sidebar {
+  .nav-item {
+    .nav-link {
+      cursor: pointer;
+    }
+  }
+}
+
+
 #contents {
   background-color: #ffffffcc;
   color: #373737;

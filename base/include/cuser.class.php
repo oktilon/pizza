@@ -194,8 +194,8 @@ class CUser {
     }
 
     public static function getCurrentUser() {
-        $cache = isset($_SESSION['user']) ? json_decode($_SESSION['user']) : 0;
-        $u = new CUser($cache);
+        // $cache = isset($_SESSION['user']) ? json_decode($_SESSION['user']) : 0;
+        $u = new CUser(0);
         return $u;
     }
 
@@ -249,7 +249,7 @@ class CUser {
     }
 
     public function setSession() {
-        $_SESSION['user'] = $this->getSessionJson();
+        //$_SESSION['user'] = $this->getSessionJson();
     }
 
     public function hasValidPassword() {
