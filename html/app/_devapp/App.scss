@@ -3,6 +3,7 @@ $font-menu: 'DynalightRegular';
 $font-header: 'DynalightRegular';
 $font-logo: 'NickainlyNormal', cursive;
 $font-advert: 'NickainlyNormal', cursive;
+$font-popup: "Open Sans", sans-serif;
 
 %navigation-left {
   background-position: 0 -52px;
@@ -373,8 +374,7 @@ margin: 0px auto 50px;
     outline: none;
     text-decoration: none;
     cursor: pointer;
-    font-family: "Open Sans", sans-serif;
-
+    font-family: $font-popup;
     &--success {
       background-color: #27ae60;
       border-color: #27ae60;
@@ -405,7 +405,7 @@ margin: 0px auto 50px;
       padding: 15px 20px;
       background: #EDF5F7;
       color: #454B4D;
-      
+
       &__title {
         margin: 0;
         font-size: 16px;
@@ -422,7 +422,7 @@ margin: 0px auto 50px;
       background: #fff;
       position: relative;
       z-index: 2;
-      
+
       p {
         margin: 0 0 5px;
       }
@@ -431,18 +431,18 @@ margin: 0px auto 50px;
     &__footer {
       overflow: hidden;
       padding: 40px 20px 20px;
-      
+
       &__right-space {
         float: right;
-        
+
         .mm-popup__btn {
           margin-left: 5px;
         }
       }
-      
+
       &__left-space {
         float: left;
-        
+
         .mm-popup__btn {
           margin-right: 5px;
         }
@@ -452,7 +452,7 @@ margin: 0px auto 50px;
     &--popover {
       width: 300px;
       margin-left: -150px;
-      
+
       .mm-popup__close {
         position: absolute;
         top: 5px;
@@ -471,7 +471,7 @@ margin: 0px auto 50px;
         margin: 0;
         z-index: 3;
       }
-      
+
       .mm-popup__box__body {
         padding: 20px;
       }
@@ -494,10 +494,10 @@ margin: 0px auto 50px;
     &__footer__right-space {
       float: none;
     }
-    
+
     &__footer {
       padding-top: 30px;
-      
+
       .mm-popup__btn {
         display: block;
         width: 100%;
@@ -636,7 +636,7 @@ margin: 0px auto 50px;
         background-color: transparent;
         color: #4b4b4b;
         cursor: pointer;
-        font-family: Times New Roman;
+        font-family: $font-top-menu;
         font-size: 1em;
         font-weight: bold;
         width: 60px;
@@ -787,11 +787,11 @@ display: block;
 /*------------------------- Footer -------------------------*/
 #footer	{
   color: #949494;
-  font-family: Times New Roman;
+  font-family: $font-top-menu;
   margin: 0 auto;
 
   div.advertise {
-    display: inline-block;
+    display: flex;
     margin: 0px auto 41px;
     padding: 0px 10px;
 
@@ -801,7 +801,9 @@ display: block;
       list-style-type: none;
       height: 180px;
       width: 290px;
-      margin-right: 13px;
+      max-width: 290px;
+      margin-right: auto;
+      margin-left: auto;
       padding: 0px 45px;
       text-align: center;
       overflow: hidden;
@@ -859,26 +861,17 @@ display: block;
     }
   }
 
-  div.navigation {
-    div a {
-      border-right: 1px solid #949494;
-    }
-    div.last {
-      border-right: none;
-    }
-  }
-
   div {
     line-height: 24px;
     text-align: center;
   }
   div a {
-  color: #949494;
-  padding: 0px 10px;
-  text-decoration: none;
+    color: #949494;
+    padding: 0px 10px;
+    text-decoration: none;
   }
   div a:hover, div ul li.selected a {
-  color: #ffffff;
+    color: #ffffff;
   }
   div ul {
     display: inline-block;
@@ -887,22 +880,24 @@ display: block;
     padding: 0px;
   }
   ul li {
-  float: left;
-  list-style-type: none;
-  text-align: center;
+    float: left;
+    list-style-type: none;
+    text-align: center;
   }
   div ul li a {
-  border-right: 1px solid #949494;
+    border-right: 1px solid #949494;
   }
   div ul li.last a {
-  border: 0px;
+    border: 0px;
   }
   div span {
-  display: block;
-  line-height: 24px;
-  margin-bottom: 20px;
+    display: block;
+    line-height: 24px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
   }
   div span a {
-  padding: 0px;
+    padding: 0px;
   }
 }

@@ -15,7 +15,7 @@ class MainFooter extends React.Component {
 		const { path, routes } = this.props;
 
 		return  (
-			<Container id="footer">
+			<Container id="footer" className="w-100">
 				<Row className="advertise">
 					<Col className="delivery">
 						<h2>Голодно? Мы доставим</h2>
@@ -34,7 +34,7 @@ class MainFooter extends React.Component {
 				</Row>
 				<Row className="navigation bottom-collapse">
 					{routes.filter(x=>x.menu == MenuLocations.Bottom)
-						.map( (item, ix) => {		 
+						.map( (item, ix) => {
 							if(item.hasOwnProperty('user')) {
 								const needLogged = item.user;
 								const isLogged = this.props.user && this.props.user.id > 0;
@@ -44,7 +44,7 @@ class MainFooter extends React.Component {
 						})
 					}
 				</Row>
-				<Row>
+				<Row className="w-100 text-center">
 					<span>© Copyright 2017. All Rights Reserved.</span>
 				</Row>
 			</Container>
@@ -58,5 +58,5 @@ function mapStateToProps(state) {
 		user
 	};
   }
-  
+
   export default connect(mapStateToProps)(MainFooter);
