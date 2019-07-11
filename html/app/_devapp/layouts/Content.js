@@ -1,4 +1,5 @@
 import React from "react";
+import _ from 'lodash';
 import PropTypes from "prop-types";
 import { Container, Row, Col } from "shards-react";
 
@@ -16,7 +17,7 @@ const ContentLayout = ({ path, routes, children, noHeader, noFooter }) => (
     <Row>
       <Col>
         {!noHeader && <MenuHeader noNavigation={false} path={path} routes={routes} />}
-        {path != 'order' && <FloatingCart />}
+        {_.indexOf(['pizza','fast-food','desserts','drinks'], path) >= 0 && <FloatingCart />}
         <div id="contents">
           {children}
         </div>
