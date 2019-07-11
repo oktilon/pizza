@@ -6,7 +6,7 @@ import MenuHeader from "../components/layout/MainHeader";
 import MainFooter from "../components/layout/MainFooter";
 import FloatingCart from "../components/layout/FloatingCart";
 
-const ContentLayout = ({ path, routes, children, noHeader, noFooter, cnt }) => (
+const ContentLayout = ({ path, routes, children, noHeader, noFooter }) => (
   <Container
     fluid
     onScroll={(ev) => {
@@ -16,7 +16,7 @@ const ContentLayout = ({ path, routes, children, noHeader, noFooter, cnt }) => (
     <Row>
       <Col>
         {!noHeader && <MenuHeader noNavigation={false} path={path} routes={routes} />}
-        <FloatingCart />
+        {path != 'order' && <FloatingCart />}
         <div id="contents">
           {children}
         </div>

@@ -39,7 +39,7 @@ class MainHeader extends React.Component {
 						</NavLink>
 					</NavItem>
 				</Nav>
-				<h1><a href="/" id="logo">Youssef</a></h1>
+				<h1><NavLink to="/" id="logo">Youssef</NavLink></h1>
 				{ !noNavigation &&
 					<ul id="navigation" className="visible-top-menu">
 						{routes.filter( x => x.menu == MenuLocations.Top)
