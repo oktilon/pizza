@@ -13,6 +13,8 @@ import FastFood from "./views/FastFood";
 import Contacts from "./views/Contacts";
 import Order from "./views/Order";
 import Login from "./views/Login";
+import About from "./views/About";
+import Blog from "./views/Blog";
 
 export default [
   {
@@ -77,9 +79,16 @@ export default [
   {
     path: "/about",
     layout: ContentLayout,
-    component: Order,
+    component: About,
     title: 'О нас',
     menu: MenuLocations.Bottom
+  },
+  {
+    path: "/blog",
+    layout: ContentLayout,
+    component: Blog,
+    title: 'Блог',
+    menu: false
   },
   {
     path: "/contacts",

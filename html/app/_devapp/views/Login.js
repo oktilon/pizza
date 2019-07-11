@@ -142,12 +142,12 @@ class Login extends React.Component {
                                 <FormGroup>
                                     <label htmlFor="fePassword">Телефон</label>
                                     <FormInput
-                                    id="fePassword"
-                                    type="password"
-                                    value={password}
-                                    placeholder="Ваше пароль"
-                                    required
-                                    onChange={this.onChangePassword}
+                                        id="fePassword"
+                                        type="password"
+                                        value={password}
+                                        placeholder="Ваше пароль"
+                                        required
+                                        onChange={this.onChangePassword}
                                     />
                                 </FormGroup>
 
@@ -166,10 +166,10 @@ class Login extends React.Component {
         }
 
         return (
-            <Container fluid className="main-content-container px-4" style={{width:"450px"}}>
+            <Container fluid className="main-content-container px-4" style={{maxWidth:"450px"}}>
                 <Row>
                     <Col>
-                        <Card small width="400px">
+                        <Card small style={{maxWidth:"400px"}}>
                             <CardHeader className="border-bottom">
                                 <h6 className="m-0">{logged ? "Выход" : "Вход"}</h6>
                             </CardHeader>

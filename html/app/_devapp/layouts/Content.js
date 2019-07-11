@@ -4,10 +4,11 @@ import { Container, Row, Col } from "shards-react";
 
 import MenuHeader from "../components/layout/MainHeader";
 import MainFooter from "../components/layout/MainFooter";
+import FloatingCart from "../components/layout/FloatingCart";
 
-const ContentLayout = ({ path, routes, children, noHeader, noFooter }) => (
-  <Container 
-    fluid 
+const ContentLayout = ({ path, routes, children, noHeader, noFooter, cnt }) => (
+  <Container
+    fluid
     onScroll={(ev) => {
       console.log("Route scroll", ev);
     }}
@@ -15,6 +16,7 @@ const ContentLayout = ({ path, routes, children, noHeader, noFooter }) => (
     <Row>
       <Col>
         {!noHeader && <MenuHeader noNavigation={false} path={path} routes={routes} />}
+        <FloatingCart />
         <div id="contents">
           {children}
         </div>

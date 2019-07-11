@@ -15,12 +15,6 @@ import {
 class MainHeader extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.handleScroll = this.handleScroll.bind(this);
-	}
-
-	handleScroll(ev) {
-		console.log(ev);
 	}
 
 	render() {
@@ -45,12 +39,9 @@ class MainHeader extends React.Component {
 						</NavLink>
 					</NavItem>
 				</Nav>
-				<div className="sticky-basket" onScroll={this.handleScroll}>
-					{badge}
-				</div>
 				<h1><a href="/" id="logo">Youssef</a></h1>
 				{ !noNavigation &&
-					<ul id="navigation2">
+					<ul id="navigation" className="visible-top-menu">
 						{routes.filter( x => x.menu == MenuLocations.Top)
 							.map( (item, ix) => (
 							<TopNav item={item} path={path} key={ix} />

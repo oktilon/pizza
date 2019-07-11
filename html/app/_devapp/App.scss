@@ -41,8 +41,17 @@ body {
   display: inherit !important;
 }
 
+.visible-top-menu {
+  display: inherit !important;
+}
+
 @media (max-width: 850px) {
   .visible-top {
+      display: none !important;
+  }
+}
+@media (max-width: 960px) {
+  .visible-top-menu {
       display: none !important;
   }
 }
@@ -143,7 +152,7 @@ body {
 #navigation {
   background: url(/images/bg-navigation.gif) no-repeat left top ;
   height: 52px;
-  width: 550px;
+  width: 475px;
   margin: 0px;
   padding: 15px 10px;
   position: relative;
@@ -288,10 +297,12 @@ margin: 0px auto 50px;
   line-height: 24px;
   border-top: 2px outset #393939;
   border-bottom: 2px inset #393939;
-  margin: 150px auto auto auto;
+  margin: 150px auto;
   padding: 22px 0px;
+  align-content: center;
   text-align: center;
-  width: 450px;
+  max-width: 450px;
+  min-width: 270px;
 }
 
 .main-sidebar {
