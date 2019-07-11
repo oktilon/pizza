@@ -35,7 +35,6 @@ class MainFooter extends React.Component {
 				<Row className="navigation bottom-collapse">
 					{routes.filter(x=>x.menu == MenuLocations.Bottom)
 						.map( (item, ix) => {		 
-							var add = '';
 							if(item.hasOwnProperty('user')) {
 								const needLogged = item.user;
 								const isLogged = this.props.user && this.props.user.id > 0;

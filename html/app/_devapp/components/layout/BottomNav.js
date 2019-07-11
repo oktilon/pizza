@@ -4,7 +4,7 @@ import {
 	Col,
   } from "shards-react";
 
-const BottomNav = ({ item, path, add }) => {
+const BottomNav = ({ item, path }) => {
     let cls = [];
     const m = /\/(.*)/.exec(item.path);
     if(m && m[1] == path) cls.push('selected');

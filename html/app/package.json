@@ -32,7 +32,8 @@
     "webpack-cli": "^3.3.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run watch",
+    "start2": "react-scripts start",
     "build": "webpack --progress --env.NODE_ENV=production --mode production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
