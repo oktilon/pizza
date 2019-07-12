@@ -144,12 +144,22 @@ class Order extends React.Component {
                           />
                         </FormGroup>
 
+
                         <ListGroup>
+                          <ListGroupItem key="hdr">
+                            <Row>
+                              <Col>Наименование</Col>
+                              <Col>Цена x Кол</Col>
+                              <Col>Сумма</Col>
+                              <Col></Col>
+                            </Row>
+                          </ListGroupItem>
                           {cart.map(item => <ListGroupItem key={item.id}>
                             <Row>
                               <Col>{item.prod.name + ' (' + item.price.name + ')'}</Col>
                               <Col>{item.price.price + ' x ' + item.cnt}</Col>
                               <Col>{item.price.price * item.cnt}</Col>
+                              <Col></Col>
                             </Row>
                           </ListGroupItem>)}
                         </ListGroup>
