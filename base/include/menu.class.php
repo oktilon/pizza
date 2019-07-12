@@ -2,11 +2,12 @@
 class Menu {
     public $id = 0;
     public $kind = '';
+    public $ord = 0;
     public $name = '';
     public $pic = '';
     public $desc = '';
     public $flags = 0;
-    
+
     public $content = [];
     public $prices = [];
 
@@ -34,6 +35,7 @@ class Menu {
     private function getProperty($k, $v) {
         switch ($k) {
             case 'flags':
+            case 'ord':
             case 'id': return intval($v);
         }
         return $v;
@@ -78,7 +80,7 @@ class Menu {
         return $ret;
     }
 
-    public static function getList($flt = [], $ord = 'id', $lim = '') {
+    public static function getList($flt = [], $ord = 'ord', $lim = '') {
         global $DB;
         self::$total = 0;
         $glue = ' AND ';

@@ -29,28 +29,28 @@ export default [
     path: "/fast-food",
     layout: ContentLayout,
     component: FastFood,
-    title: 'Fast food',
+    title: 'Фаст-фуд',
     menu: MenuLocations.Top
   },
   {
     path: "/pizza",
     layout: ContentLayout,
     component: Pizza,
-    title: 'Pizza',
+    title: 'Пицца',
     menu: MenuLocations.Top
   },
   {
     path: "/desserts",
     layout: ContentLayout,
     component: Desserts,
-    title: 'Desserts',
+    title: 'Десерты',
     menu: MenuLocations.Top
   },
   {
     path: "/drinks",
     layout: ContentLayout,
     component: Drinks,
-    title: 'Drinks',
+    title: 'Напитки',
     menu: MenuLocations.Top
   },
   {
