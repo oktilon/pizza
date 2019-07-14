@@ -7,7 +7,7 @@ class Email {
     public $tmp = null;
     public $who = 0;
     public $stat = 0;
-    public $dt_open = 0;
+    public $dt_open = null;
     public $dat = [];
     public $guid = '';
     public $flags = 0;
@@ -18,7 +18,11 @@ class Email {
     const HEADER_MESSAGE_ID   = 'CTRL-DliveryID';
     const HEADER_MESSAGE_GUID = 'CTRL-DliveryGUID';
 
-    const FLAG_TRACK_OPEN = 0x1;
+    const FLAG_TRACK_OPEN   = 0x1;
+    const FLAG_TRACK_OPENED = 0x2;
+
+    const STAT_SENT       = 1;
+    const STAT_SEND_ERROR = 2;
 
     public static $debug = '';
     public static $error = '';
@@ -65,7 +69,7 @@ class Email {
         $this->mailer->isSMTP();
         $this->mailer->SMTPDebug   = $debug;
         $this->mailer->Timeout     = 5;
-        $this->mailer->Debugoutput = function($str, $level) { syslog(LOG_ERR, "SMTP lvl:$level; msg: $str"); }; // 'echo';
+        $this->mailer->Debugoutput = function($str, $level) { error_log("SMTP lvl:$level; msg: $str"); }; // 'echo';
 
         $this->mailer->CharSet     = 'UTF-8';
         $this->mailer->Encoding    = '8bit';
@@ -229,7 +233,7 @@ class Email {
             else syslog(LOG_ERR, "SMTP mailer error: {$this->mailer->ErrorInfo}");
         }
 
-        $this->stat = $ret ? 1 : 2;
+        $this->stat = $ret ? self::STAT_SENT : self::STAT_SEND_ERROR;
         $this->save();
 
         return $ret;
@@ -256,5 +260,24 @@ class Email {
 
     static function createKey($template_name, $id) {
         return md5(sprintf(SMTP_KEY_FMT, date(SMTP_KEY_PAR), $template_name, $id));
+    }
+
+    static function trackMail($guid) {
+        global $DB;
+        $id = intval($DB->prepare("SELECT id FROM mail_log
+                                    WHERE flags & :f
+                                        AND guid = :g")
+                        ->bind('f', self::FLAG_TRACK_OPEN)
+                        ->bind('g', $guid)
+                        ->execute_scalar());
+        if(!$id) return false;
+        return $DB->prepare("UPDATE mail_log
+                                SET flags = flags | :f,
+                                    dt_open = NOW()
+                                WHERE id = :i
+                                    AND YEAR(dt_open) < 2001")
+                ->bind('f', self::FLAG_TRACK_OPENED)
+                ->bind('i', $id)
+                ->execute();
     }
 }
