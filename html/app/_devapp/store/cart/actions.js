@@ -11,25 +11,29 @@ import * as types from './actionTypes';
 export function addItem(prod, price) {
     return (dispatch) => {
         try {
-            let data = {
-                id: price.id,
-                prod: prod,
-                price: price
-            };
-            dispatch({ type:types.ITEM_ADDED, data })
+            const { id } = price;
+            dispatch({ type:types.ITEM_ADDED, id, prod, price })
         } catch (error) {
             console.error(error);
         }
     };
 }
 
-export function removeItem(prod, price) {
+export function removeItem(price) {
     return (dispatch) => {
         try {
-            let data = {
-                id: price.id
-            };
-            dispatch({ type:types.ITEM_REMOVED, data })
+            const { id } = price;
+            dispatch({ type:types.ITEM_REMOVED, id })
+        } catch (error) {
+            console.error(error);
+        }
+    };
+}
+
+export function emptyCart() {
+    return (dispatch) => {
+        try {
+            dispatch({ type:types.CART_CLEANED })
         } catch (error) {
             console.error(error);
         }

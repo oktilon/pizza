@@ -44,14 +44,22 @@ body {
 .visible-top-menu {
   display: inherit !important;
 }
+.top-menu-mobile {
+  display: inherit !important;
+}
 
 @media (max-width: 850px) {
   .visible-top {
       display: none !important;
   }
 }
-@media (max-width: 960px) {
+@media (max-width: 1000px) {
   .visible-top-menu {
+      display: none !important;
+  }
+}
+@media (min-width: 1001px) {
+  .top-menu-mobile {
       display: none !important;
   }
 }
@@ -598,66 +606,17 @@ margin: 0px auto 50px;
   }
 }
 
-/*---- book-events us page ----*/
-#booking form {
-  display: inline-block;
-  height: 401px;
-  width: 960px;
+.order-table {
+  td {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
 
-  table {
-    float: left;
-    width: 940px;
-    border-collapse: separate;
-    margin: 0px 0px 0px 10px;
-    padding: 6px 0 0;
-    text-align: left;
-
-    span {
-      display: block;
-    }
-
-    td {
-      line-height: 24px;
-      padding: 6px 5px;
-      vertical-align: center;
-
-      textarea {
-        height: 179px;
-        width: 100%;
-        border: 1px solid #000000;
-        margin: 0 0 14px;
-      }
-
-      input {
-        width: 100%;
-        border: 1px solid #000000;
-      }
-
-      input.number {
-        width: 60px;
-      }
-
-      input.radio {
-        width: 16px;
-        border: 0px;
-      }
-
-      input.button {
-        float: right;
-        background-color: transparent;
-        color: #4b4b4b;
-        cursor: pointer;
-        font-family: $font-top-menu;
-        font-size: 1em;
-        font-weight: bold;
-        width: 60px;
-        border: 0px;
-        margin: 0px;
-        padding: 0px;
-      }
-    }
+  tfoot tr td {
+    border-bottom: none;
   }
 }
+
 
 /*--------------------------About us Page --------------------------*/
 #aboutus h3 {
@@ -813,6 +772,7 @@ display: block;
       height: 180px;
       width: 290px;
       max-width: 290px;
+      min-width: 280px;
       margin-right: auto;
       margin-left: auto;
       padding: 0px 45px;

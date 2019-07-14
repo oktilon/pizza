@@ -26,3 +26,4 @@ yarn-error.log*
 .phpintel/*
 
 config.php
+html/app/_devapp/config.js

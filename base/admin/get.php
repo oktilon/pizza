@@ -1,7 +1,7 @@
 <?php
     $ret = new ScriptAnswer();
 
-    $info = $DB->prepare("SELECT * FROM info WHERE id IN('adr','email','phone')")->execute_all();
+    $info = $DB->prepare("SELECT * FROM info")->execute_all();
 
     $ret->menu = Menu::getList();
     $ret->ingr = Ingridient::getList();

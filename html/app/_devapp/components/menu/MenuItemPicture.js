@@ -32,8 +32,7 @@ class MenuItemPicture extends React.Component {
     }
 
     removeItem(item) {
-        const { menuItem } = this.props;
-        this.props.dispatch(cartActions.removeItem(menuItem, item));
+        this.props.dispatch(cartActions.removeItem(item));
     }
 
     render() {
@@ -48,22 +47,23 @@ class MenuItemPicture extends React.Component {
                 const inBasket = _.find(cart, x => x.id == item.id);
                 const cnt = inBasket ? inBasket.cnt : 0;
                 const del = cnt > 0;
+                const price = item.price > 0 ? `${item.price}` : '';
                 return (
                     <Row key={ix}>
                         <Col>
-                            <span>{item.name}</span><span className="text-fiord-blue ml-1">{item.price}</span>
+                            <span>{item.name}</span><span className="text-fiord-blue ml-1">{price}</span>
                         </Col>
-                        <Col>
+                        {item.price > 0 && <Col>
                             <Button size="sm" theme="danger" disabled={!del} outline={!del} className="float-right" onClick={()=>{this.removeItem(item)}}>
                                 <FontAwesomeIcon icon={faTrashAlt} />
                             </Button>
                             <Button size="sm" theme="white" className="float-right" onClick={()=>{this.addItem(item)}}>
                                 <FontAwesomeIcon icon={faShoppingCart} /> {cnt}
                             </Button>
-                        </Col>
+                        </Col>}
                     </Row>
                 );
-            });    
+            });
         }
 
         const url = '/images/menu/' + menuItem.pic;
@@ -75,7 +75,7 @@ class MenuItemPicture extends React.Component {
         const badge = 'primary';
 
         return (
-            <Card small className="card-post h-100">
+            <Card small className="card-post h-100" id={menuItem.name}>
                 <div
                     className="card-post__image"
                     style={style}
@@ -93,7 +93,7 @@ class MenuItemPicture extends React.Component {
                         {menuItem.name}
                         </span>
                     </h5>
-                    {menuItem.content.length > 0 && 
+                    {menuItem.content.length > 0 &&
                         <ContentList content={menuItem.content} />
                     }
                 </CardBody>

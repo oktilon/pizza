@@ -30,6 +30,7 @@ class PageManager {
     public $user = null;
 
     public $html     = '';
+    public $request_body  = '';
     public $request  = null;
     public $rendered = false;
     public $executed = false;
@@ -172,8 +173,8 @@ class PageManager {
         // Read page info from DB
         $this->readPage();
 
-        $body = file_get_contents("php://input");
-        $this->request = json_decode($body);
+        $this->request_body = file_get_contents("php://input");
+        $this->request = json_decode($this->request_body);
 
         // Show login page, if not authorized
         if($this->user->id == 0 && !$this->allowAll() && !$this->isScript) {

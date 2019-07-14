@@ -7,25 +7,23 @@ import MenuHeader from "../components/layout/MainHeader";
 import MainFooter from "../components/layout/MainFooter";
 import FloatingCart from "../components/layout/FloatingCart";
 
-const ContentLayout = ({ path, routes, children, noHeader, noFooter }) => (
-  <Container
-    fluid
-    onScroll={(ev) => {
-      console.log("Route scroll", ev);
-    }}
-  >
-    <Row>
-      <Col>
-        {!noHeader && <MenuHeader noNavigation={false} path={path} routes={routes} />}
-        {_.indexOf(['pizza','fast-food','desserts','drinks'], path) >= 0 && <FloatingCart />}
-        <div id="contents">
-          {children}
-        </div>
-        {!noFooter && <MainFooter path={path} routes={routes} />}
-      </Col>
-    </Row>
-  </Container>
-);
+const ContentLayout = ({ path, routes, children, noHeader, noFooter }) => {
+  const isMenu = _.indexOf(['pizza','fast-food','desserts','drinks'], path) >= 0;
+  return (
+    <Container fluid>
+      <Row>
+        <Col>
+          {!noHeader && <MenuHeader noNavigation={false} path={path} routes={routes} />}
+          {isMenu && <FloatingCart />}
+          <div id="contents">
+            {children}
+          </div>
+          {!noFooter && <MainFooter path={path} routes={routes} />}
+        </Col>
+      </Row>
+    </Container>
+  );
+}
 
 ContentLayout.propTypes = {
   /**

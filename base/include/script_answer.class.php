@@ -5,7 +5,7 @@ class ScriptAnswer {
     const STATUS_OK = 'ok';
 
     public function __construct($arg = '') {
-        if(is_string($arg) && $arg) $this->$arg = 0;
+        if(is_string($arg) && $arg) $this->status = $arg;
         elseif(is_array($arg)) {
             foreach($arg as $k => $v) {
                 if(is_string($k)) $this->$k = $v;

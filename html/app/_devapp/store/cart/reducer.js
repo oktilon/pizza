@@ -16,31 +16,31 @@ export default function reduce(state = initialState, action = {}) {
     var id, has, cart;
     switch (action.type) {
         case types.ITEM_ADDED:
-            id = action.data.id;
+            id = action.id;
             has = false;
             cart = state.cart.map(it => {
                 if(it.id == id) has = true;
                 return it.id == id ? {
                     cnt: it.cnt + 1,
                     id: id,
-                    prod: action.data.prod,
-                    price: action.data.price
+                    prod: action.prod,
+                    price: action.price
                 } : it;
             });
             if(!has) {
                 cart = cart.concat([{
                     cnt: 1,
                     id: id,
-                    prod: action.data.prod,
-                    price: action.data.price
+                    prod: action.prod,
+                    price: action.price
                 }]);
             }
             return state.merge({
                 cart: cart
             });
-          
+
         case types.ITEM_REMOVED:
-            id = action.data.id;
+            id = action.id;
             has = false;
             cart = _.filter(
                 _.map(state.cart, it => {
@@ -49,6 +49,12 @@ export default function reduce(state = initialState, action = {}) {
             return state.merge({
                 cart: cart
             });
+
+        case types.CART_CLEANED:
+            return state.merge({
+                cart: []
+            });
+
         default:
             return state;
     }

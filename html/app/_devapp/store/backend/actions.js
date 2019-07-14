@@ -7,7 +7,11 @@
 
 import _ from 'lodash';
 import * as types from './actionTypes';
+import * as typesCart from '../cart/actionTypes';
 import axios from 'axios';
+import cfg from '../../config';
+import moment from 'moment';
+import md5 from 'md5';
 
 var r = require('jsrsasign');
 
@@ -47,6 +51,45 @@ export function fetchMenu() {
     };
 }
 
+export function makeOrder(form, cart) {
+    return (dispatch, getState) => {
+        const m = moment();
+        const dt = m.format(cfg.appFmt);
+        const pd = {
+            f: form,
+            c: cart,
+            d: m.unix()
+        };
+        const body = JSON.stringify(pd);
+        const sign = md5(`${dt}${body}${cfg.appKey}`);
+
+        dispatch({ type: types.ORDER_BEGIN });
+
+        try {
+            axios.post('/make/order', pd,{
+                headers: {'Signature': sign},
+            })
+                .then(function (response) {
+                    const { oid } = response.data;
+                    // handle success
+                    if(response.data.status == 'ok') {
+                        dispatch({ type: types.ORDER_SENT, oid });
+                        dispatch({ type: typesCart.CART_CLEANED });
+                    }
+                })
+                .catch(function (error) {
+                    const status = error.response.data.status || `error ${error.response.status}`;
+                    dispatch({ type: types.ORDER_ERROR, status });
+                })
+                .finally(function () {
+                    // always executed
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+}
+
 export function loginUser(usr, pwd) {
     return (dispatch, getState) => {
         try {
@@ -57,9 +100,14 @@ export function loginUser(usr, pwd) {
                 .then(function (response) {
                     // handle success
                     if(response.data.status == 'ok') {
-                        if(r.jws.JWS.verify(response.data.jwt, pubKey, ['RS256'])) {
-                            const obj = r.jws.JWS.parse(response.data.jwt);
-                            dispatch({ type: types.USER_LOGGED, user: obj.payloadObj });
+                        const jwt = response.data.jwt;
+                        if(r.jws.JWS.verify(jwt, pubKey, ['RS256'])) {
+                            const data = response.data.data;
+                            //const menu = response.data.menu;
+                            const ingr = response.data.ingr;
+
+                            const obj = r.jws.JWS.parse(jwt);
+                            dispatch({ type: types.USER_LOGGED, user: obj.payloadObj, jwt, data, ingr });
                         }
                     }
                 })
@@ -80,6 +128,16 @@ export function logoutUser() {
     return (dispatch, getState) => {
         try {
             dispatch({ type: types.USER_LOGGED_OUT });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+}
+
+export function closeOrder() {
+    return (dispatch, getState) => {
+        try {
+            dispatch({ type: types.ORDER_RESET });
         } catch (error) {
             console.error(error);
         }

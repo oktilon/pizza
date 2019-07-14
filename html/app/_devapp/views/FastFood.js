@@ -3,6 +3,7 @@
 import React from "react";
 import PageTitle from "../components/common/PageTitle";
 import Menu from "../components/menu/Menu";
+import MenuTabs from '../components/menu/MenuTabs';
 import {
   Container,
   Row,
@@ -18,10 +19,13 @@ class FastFood extends React.Component {
   render() {
     return (
       <Container fluid className="main-content-container px-4">
+        <Row className="top-menu-mobile">
+          <MenuTabs active="fast-food" />
+        </Row>
         <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="Фаст-фуд" subtitle="" className="text-center" />
         </Row>
-        <Menu 
+        <Menu
           kind="fastfood"
           row={4}
         />

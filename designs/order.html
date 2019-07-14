@@ -1,0 +1,34 @@
+<html>
+<head>
+
+</head>
+<body>
+
+<h1>Заказ №{{oid}} с сайта</h1>
+<table border="0">
+  <tr><td><i>Дата заказа</i></td><td><b>{{dt}}</b></tr>
+  <tr><td><i>Заказчик</i></td><td><b>{{fio}}</b></tr>
+  <tr><td><i>Телефон</i></td><td><b>{{phone}}</b></tr>
+  <tr><td><i>Адрес доставки</i></td><td><b>{{adr}}</b></tr>
+  <tr><td colspan="2"><i>Заказ:</i></tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <thead>
+    <tr style="background: silver;">
+      <th>Наименование</th>
+      <th>Цена</th>
+      <th>Количество</th>
+      <th>Сумма</th>
+    </tr>
+  </thead>
+  <tbody>{{tbl}}</tbody>
+  <tfoot>
+    <tr style="font-weight:bold;">
+      <td colspan="3">ИТОГО</td>
+      <td colspan="3">{{tot}}</td>
+    </tr>
+  </tfoot>
+</table>
+
+</body>
+</html>

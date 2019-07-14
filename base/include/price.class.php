@@ -1,11 +1,12 @@
 <?php
 class Price {
     public $id = 0;
+    public $prod = 0;
     public $name = '';
     public $pic = '';
     public $flags = 0;
     public $ord = 0;
-    
+
     public static $total = 0;
     public static $error = '';
 
