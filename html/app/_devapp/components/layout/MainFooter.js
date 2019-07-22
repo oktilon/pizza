@@ -28,7 +28,7 @@ class MainFooter extends React.Component {
 					<Col className="connect">
 						<h2>Давай дружить!</h2>
 						<br/>
-						<a href="https://www.facebook.com/" target="_blank" className="fb" title="Facebook"></a>
+						<a href="https://www.facebook.com/Pizza-youssef-351759775196922/" target="_blank" className="fb" title="Facebook"></a>
 						<a href="https://www.instagram.com/orderpizza.dp.ua/" target="_blank" className="twitr" title="Twitter"></a>
 					</Col>
 				</Row>

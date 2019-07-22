@@ -29,7 +29,7 @@ const Contacts = ({ data }) => (
                 Мы только запускаем наш сервис по доставке, но на рынке фаст фуда уже непрерывно работаем с 2010 года. Постепенно мы совершенствуемся и добавляем свежие акции.
                 В нашем <NavLink to="/blog">блоге</NavLink> мы будем делиться с нашими клиентами новинками и промо.
                 Добавляйтесь к нам в социальных сетях <a
-                  href="https://www.facebook.com/" target="_blank">Facebook</a> и <a
+                  href="https://www.facebook.com/Pizza-youssef-351759775196922/" target="_blank">Facebook</a> и <a
                   href="https://www.instagram.com/orderpizza.dp.ua/" target="_blank">Instagram</a> чтобы не пропустить лучшие предложения!</p>
                 <table className="contact-details">
                     <tbody>

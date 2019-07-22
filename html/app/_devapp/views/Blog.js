@@ -57,7 +57,7 @@ const About = () => (
                             <p>Здесь мы ведем наш блог, наши истории. Периодически мы выставляем промо-акции для постоянных клиентов.
                             </p>
                             <p>Добавляйтесь к нам в социальных сетях <a
-                                href="https://www.facebook.com/" target="_blank">Facebook</a> и <a
+                                href="https://www.facebook.com/Pizza-youssef-351759775196922/" target="_blank">Facebook</a> и <a
                                 href="https://www.instagram.com/orderpizza.dp.ua/" target="_blank">Instagram</a> чтобы быть постоянно в курсе событий.</p>
                         </div>
                     </div>
