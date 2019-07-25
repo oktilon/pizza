@@ -11,7 +11,7 @@ import InlineTextEdit from '../common/InlineTextEdit';
 
 class MenuRow extends React.Component {
     render() {
-        const { item, opened, isPrice, openItem, addNewPrice, flags } = this.props;
+        const { item, opened, isPrice, isAux, openItem, addNewPrice, flags } = this.props;
         var childBody = false;
         var childHead = false;
         var openPrices = !opened || (opened && !isPrice);
@@ -52,8 +52,8 @@ class MenuRow extends React.Component {
                             fontSize: 15,
                             outline: 0,
                             border: 0
-                        }}                
-                        
+                        }}
+
                     />
                 </td>
                 <td>{item.desc}</td>
@@ -63,10 +63,10 @@ class MenuRow extends React.Component {
                     })}
                 </td>
                 <td>
-                    <Button 
-                        size="sm" 
-                        outline 
-                        theme="info" 
+                    <Button
+                        size="sm"
+                        outline
+                        theme="info"
                         onClick={()=>{
                             openItem(openPrices ? item.id : null, true);
                         }}
@@ -74,16 +74,27 @@ class MenuRow extends React.Component {
                         <FontAwesomeIcon icon={openPrices ? faChevronDown : faChevronUp} className="mr-2" />
                         Цены
                     </Button>
-                    <Button 
-                        size="sm" 
-                        outline 
-                        theme="primary" 
+                    <Button
+                        size="sm"
+                        outline
+                        theme="primary"
                         onClick={()=>{
                             openItem(openContent ? item.id : null, false);
                         }}
                     >
                         <FontAwesomeIcon icon={openContent ? faChevronDown : faChevronUp} className="mr-2" />
                         Состав
+                    </Button>
+                    <Button
+                        size="sm"
+                        outline
+                        theme="success"
+                        onClick={()=>{
+                            openItem(openAuxiliary ? item.id : null, false);
+                        }}
+                    >
+                        <FontAwesomeIcon icon={openAuxiliary ? faChevronDown : faChevronUp} className="mr-2" />
+                        Доп.ингр.
                     </Button>
                 </td>
             </tr>

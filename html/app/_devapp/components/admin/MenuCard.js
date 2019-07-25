@@ -19,6 +19,9 @@ const stats = [
     { id: 'all',      name: 'Все',      flags: 0, ico: false,      clr: '' }
 ];
 
+const openedBlock = [
+    //
+]
 
 Popup.registerPlugin('new_menu', function (defaultValue, placeholder, callback) {
     let promptValue = null;
@@ -90,7 +93,8 @@ class MenuCard extends React.Component {
             kind : 'all',
             stat : 'active',
             openedItem : null,
-            openedPrices : false
+            openedPrices : false,
+            openedAux: false
         }
     }
 
@@ -102,10 +106,11 @@ class MenuCard extends React.Component {
         this.setState({ stat: ev.target.value });
     }
 
-    openItem(itemId, isPrice) {
+    openItem(itemId, isPrice, isAux) {
         this.setState({
             openedItem: itemId,
-            openedPrices: isPrice
+            openedPrices: isPrice,
+            openedAux: isAux
         })
     }
 
@@ -173,6 +178,7 @@ class MenuCard extends React.Component {
                     item={item}
                     opened={item.id == openedItem}
                     isPrice={openedPrices}
+                    isAux={openedAux}
                     openItem={this.openItem}
                     addNewPrice={this.addNewPrice}
                     flags={stats}
