@@ -19,7 +19,7 @@ class PriceRow extends React.Component {
     render() {
         const { item } = this.props;
         return (<tr>
-            <td><ImageCell price img={item.pic} onClick={this.setPicture} /></td>
+            <td><ImageCell type="" id={item.id} onClick={this.setPicture} /></td>
             <td>{item.name}</td>
             <td>{item.price}</td>
             <td>

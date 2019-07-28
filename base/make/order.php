@@ -2,10 +2,10 @@
     $ret = new ScriptAnswer();
 
     $tg_icon = [
-        'pizza' => '🍕',
-        'desert' => '🍫',
+        'pizza'    => '🍕',
+        'desert'   => '🍫',
         'fastfood' => '🍔',
-        'drink' => '🍻',
+        'drink'    => '🍻',
     ];
 
     try {

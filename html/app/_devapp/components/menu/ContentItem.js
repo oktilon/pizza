@@ -7,8 +7,7 @@ const ContentItem = (props) => {
       contentItem
     } = props;
 
-    const img = contentItem.pic ? contentItem.pic : 'none';
-    const url = '/images/content/' + img;
+    const url = '/image/c/' + contentItem.id;
 
     const style = {
         backgroundImage: `url('${url}')`

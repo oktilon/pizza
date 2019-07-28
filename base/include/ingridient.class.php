@@ -4,7 +4,8 @@ class Ingridient {
     public $name = '';
     public $pic = '';
     public $flags = 0;
-    
+    public $price = 0;
+
     public static $total = 0;
     public static $error = '';
 
@@ -26,14 +27,14 @@ class Ingridient {
 
     private function getProperty($k, $v) {
         switch ($k) {
-            case 'flags':
-            case 'id': return intval($v);
+            case 'name':
+            case 'pic': return $v;
         }
-        return $v;
+        return intval($v);
     }
 
     public function save() {
-        $t = new SqlTable('ingridients', $this);
+        $t = new SqlTable('ingridients', $this, ['price']);
         return $t->save($this);
     }
 
@@ -67,6 +68,7 @@ class Ingridient {
         $prod = 0;
         $fld = '';
         $flds = 'i.*';
+        $tbl = '';
         $ret = [];
         $par = [];
         $add = [];
@@ -84,6 +86,15 @@ class Ingridient {
                         $par['pr'] = $prod;
                         $add[] = 'prod = :pr';
                         $ord = $ord ? "ord, $ord" : 'ord';
+                        $tbl = 'receipts';
+                    }
+                } elseif($cond == 'aux') {
+                    $prod = intval(array_shift($it));
+                    if($prod) {
+                        $par['pr'] = $prod;
+                        $add[] = 'prod = :pr';
+                        $flds .= ', price';
+                        $tbl = 'aux_ingridients';
                     }
                 } else {
                     if($cond) $add[] = $cond;
@@ -97,7 +108,7 @@ class Ingridient {
         $order = $ord ? "ORDER BY $ord" : '';
         $limit = $lim ? "LIMIT $lim" : '';
         $calc  = $lim ? "SQL_CALC_FOUND_ROWS" : '';
-        $join = $prod ? "LEFT JOIN receipts ON ingr = i.id" : '';
+        $join = $tbl ? "LEFT JOIN $tbl ON ingr = i.id" : '';
         $DB->prepare("SELECT $calc $flds FROM ingridients i $join $add $order $limit");
         foreach($par as $k => $v) {
             $DB->bind($k, $v);

@@ -754,6 +754,16 @@ letter-spacing: 1px;
 display: block;
 }
 
+.icon-open {
+  transform: rotate(0);
+  -webkit-transition: ease 0.5s;
+  transition: ease 0.5s;
+}
+
+.icon-open.icon-turn {
+  transform: rotate(180deg);
+}
+
 /*------------------------- Footer -------------------------*/
 #footer	{
   color: #949494;

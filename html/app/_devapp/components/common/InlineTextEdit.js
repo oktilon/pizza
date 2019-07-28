@@ -27,10 +27,10 @@ class InlineTextEdit extends React.Component {
         }
 
         this.setState({
-            isEditing: true//!this.state.isEditing
+            isEditing: !this.state.isEditing
         });
     }
-    
+
     handleChange() {
         this.setState({
             text: this.textInput.value
@@ -44,7 +44,7 @@ class InlineTextEdit extends React.Component {
         if (isEditing) {
             const wd = (text.length * 15) + 'px';
             return (<div>
-                <input 
+                <input
                     type='text'
                     className={this.props.inputClassName}
                     ref={ input => {
@@ -54,7 +54,7 @@ class InlineTextEdit extends React.Component {
                     onChange={this.handleChange}
                     onBlur={this.handleFocus}
                     style={{
-                        width: wd, //this.props.inputWidth,
+                        width: this.props.inputWidth,
                         height: this.props.inputHeight,
                         fontSize: this.props.inputFontSize,
                         fontWeight: this.props.inputFontWeight,
@@ -69,7 +69,7 @@ class InlineTextEdit extends React.Component {
         }
 
         return (<div>
-            <label 
+            <label
                 className={this.props.labelClassName}
                 onClick={this.handleFocus}
                 style={{

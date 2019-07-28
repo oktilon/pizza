@@ -667,6 +667,11 @@ class PageManager {
         $this->rendered = true;
     }
 
+    public function setImage($img, $mime) {
+        $this->html = $img;
+        $this->mime = $mime;
+        $this->rendered = true;
+    }
 
     public function set($name, $val) {
         $this->data[$name] = $val;

@@ -66,7 +66,7 @@ class MenuItemPicture extends React.Component {
             });
         }
 
-        const url = '/images/menu/' + menuItem.pic;
+        const url = '/image/m/' + menuItem.id;
 
         const style = {
             backgroundImage: `url('${url}')`

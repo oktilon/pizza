@@ -4,24 +4,14 @@ import { FormSelect, Row, Col, Card, CardHeader, CardBody } from "shards-react";
 import Popup from 'react-popup';
 import NewMenuPopup from "./NewMenuPopup";
 import NewPricePopup from './NewPricePopup';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-
-const kinds = [
-    { id: 'all',      name: 'Все' },
-    { id: 'pizza',    name: 'Пицца' },
-    { id: 'fastfood', name: 'Фаст-фуд' },
-    { id: 'drink',    name: 'Напиток' },
-    { id: 'desert',   name: 'Десерт' }
-];
-
-const stats = [
-    { id: 'active',   name: 'Активные', flags: 1, ico: faTrashAlt, clr: 'danger' },
-    { id: 'all',      name: 'Все',      flags: 0, ico: false,      clr: '' }
-];
-
-const openedBlock = [
-    //
-]
+import * as OpenTypes from '../../constants';
+import * as Conf from '../../conf';
+import MenuActions from "./MenuActions";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 Popup.registerPlugin('new_menu', function (defaultValue, placeholder, callback) {
     let promptValue = null;
@@ -89,12 +79,18 @@ class MenuCard extends React.Component {
         this.openItem = this.openItem.bind(this);
         this.addNewPrice = this.addNewPrice.bind(this);
 
+        this.actions = new MenuActions(
+            this.addNewPrice,
+            () => { console.log('add-cont') },
+            () => { console.log('add-aux') },
+            (it, sub) => { console.log('del-' + it + '-' + sub) }
+        );
+
         this.state = {
             kind : 'all',
             stat : 'active',
             openedItem : null,
-            openedPrices : false,
-            openedAux: false
+            openMode : OpenTypes.OPEN_NONE
         }
     }
 
@@ -106,11 +102,10 @@ class MenuCard extends React.Component {
         this.setState({ stat: ev.target.value });
     }
 
-    openItem(itemId, isPrice, isAux) {
+    openItem(itemId, openMode) {
         this.setState({
             openedItem: itemId,
-            openedPrices: isPrice,
-            openedAux: isAux
+            openMode: itemId ? openMode : OpenTypes.OPEN_NONE
         })
     }
 
@@ -127,13 +122,13 @@ class MenuCard extends React.Component {
             <Col md="2" className="form-group">
                 <label htmlFor="fltKind">Тип</label>
                 <FormSelect id="fltKind" onChange={this.filterKind} defaultValue={kind}>
-                    {_.map(kinds, k => <option value={k.id} key={k.id}>{k.name}</option>)}
+                    {_.map(Conf.kinds, k => <option value={k.id} key={k.id}>{k.name}</option>)}
                 </FormSelect>
             </Col>
             <Col md="2" className="form-group">
                 <label htmlFor="fltStatus">Статус</label>
                 <FormSelect id="fltStatus" onChange={this.filterStat} defaultValue={stat}>
-                    {_.map(stats, s => <option value={s.id} key={s.id}>{s.name}</option>)}
+                    {_.map(Conf.stats, s => <option value={s.id} key={s.id}>{s.name}</option>)}
                 </FormSelect>
             </Col>
         </Row>);
@@ -160,10 +155,10 @@ class MenuCard extends React.Component {
             kind,
             stat,
             openedItem,
-            openedPrices
+            openMode
         } = this.state;
 
-        const st = _.find(stats, s => s.id == stat);
+        const st = _.find(Conf.stats, s => s.id == stat);
         console.log(st);
 
         const menuFiltered = _.filter(menu, it => {
@@ -177,11 +172,9 @@ class MenuCard extends React.Component {
                     key={item.id}
                     item={item}
                     opened={item.id == openedItem}
-                    isPrice={openedPrices}
-                    isAux={openedAux}
+                    openMode={openMode}
                     openItem={this.openItem}
-                    addNewPrice={this.addNewPrice}
-                    flags={stats}
+                    actions={this.actions}
                 />
             })}
         </tbody>);

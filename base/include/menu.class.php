@@ -10,6 +10,7 @@ class Menu {
 
     public $content = [];
     public $prices = [];
+    public $aux = [];
 
     public static $total = 0;
     public static $error = '';
@@ -30,6 +31,7 @@ class Menu {
         }
         $this->readContent();
         $this->readPrices();
+        $this->readAuxItems();
     }
 
     private function getProperty($k, $v) {
@@ -49,8 +51,12 @@ class Menu {
         $this->prices = Price::getList([['prod = :p', 'p', $this->id]]);
     }
 
+    public function readAuxItems() {
+        $this->aux = Ingridient::getList([['aux', $this->id]]);
+    }
+
     public function save() {
-        $t = new SqlTable('menu', $this, ['content', 'prices']);
+        $t = new SqlTable('menu', $this, ['content', 'prices', 'aux']);
         $r = $t->save($this);
         if($r) {
             // save items
