@@ -15,7 +15,14 @@ let config = {
 		filename: '[name].bundle.js'
 	},
 	resolve: {
-        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+		extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+		modules: [
+			'node_modules',
+			path.resolve(__dirname, '_devapp')
+		],
+		alias: {
+			['~']: path.resolve(__dirname, '_devapp')
+		}
     },
   	module: {
 		rules: [
@@ -78,7 +85,7 @@ let config = {
 			'__API_HOST__' : JSON.stringify('http://pizza.loc/my-app/'),
 		}),
 	],
-	  
+
 };
 
 if (process.env.NODE_ENV === 'production') {

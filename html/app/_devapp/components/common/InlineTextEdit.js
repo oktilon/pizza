@@ -8,17 +8,25 @@ class InlineTextEdit extends React.Component {
 
         this.state = {
             isEditing: this.props.isEditing || false,
-            text: this.props.text || ""
+            text: this.props.text || "",
+            undo: this.props.text || ""
         };
 
         this.handleFocus = this.handleFocus.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
     handleFocus() {
         if (this.state.isEditing) {
             if (typeof this.props.onFocusOut === 'function') {
                 this.props.onFocusOut(this.state.text);
+            }
+            this.setState({
+                undo: this.state.text
+            });
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange(this.state.text);
             }
         } else {
             if (typeof this.props.onFocus === 'function') {
@@ -33,8 +41,26 @@ class InlineTextEdit extends React.Component {
 
     handleChange() {
         this.setState({
-            text: this.textInput.value
+            text: this.textInput.value,
         });
+    }
+
+    handleKeyUp(ev) {
+        if(ev.keyCode == 13) {
+            this.setState({
+                isEditing: false,
+                undo: this.state.text
+            });
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange(this.state.text);
+            }
+        }
+        if(ev.keyCode == 27) {
+            this.setState({
+                isEditing: false,
+                text: this.state.undo
+            });
+        }
     }
 
     render() {
@@ -42,7 +68,6 @@ class InlineTextEdit extends React.Component {
         var _this2 = this;
 
         if (isEditing) {
-            const wd = (text.length * 15) + 'px';
             return (<div>
                 <input
                     type='text'
@@ -53,6 +78,7 @@ class InlineTextEdit extends React.Component {
                     value={text}
                     onChange={this.handleChange}
                     onBlur={this.handleFocus}
+                    onKeyUp={this.handleKeyUp}
                     style={{
                         width: this.props.inputWidth,
                         height: this.props.inputHeight,
@@ -105,5 +131,6 @@ InlineTextEdit.propTypes = {
     inputBorderWidth: PropTypes.string,
 
     onFocus: PropTypes.func,
-    onFocusOut: PropTypes.func
+    onFocusOut: PropTypes.func,
+    onChange: PropTypes.func,
 };
