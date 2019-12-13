@@ -1,16 +1,16 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/html/app/node_modules
-/html/app/.pnp
-/html/app.pnp.js
+/public_html/app/node_modules
+/public_html/app/.pnp
+/public_html/app.pnp.js
 /vendor/*
 
 # testing
-/html/app/coverage
+/public_html/app/coverage
 
 # production
-/html/app/assets
+/public_html/app/assets
 
 # misc
 .DS_Store
@@ -26,4 +26,4 @@ yarn-error.log*
 .phpintel/*
 
 config.php
-html/app/_devapp/config.js
+public_html/app/_devapp/config.js
