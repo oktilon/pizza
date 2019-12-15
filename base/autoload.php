@@ -1,8 +1,10 @@
 <?php
 
-define('PATH_INC',  PATH_BASE . DIRECTORY_SEPARATOR . 'include');
+$DS = DIRECTORY_SEPARATOR;
+define('PATH_INC',  PATH_BASE . $DS . 'include');
 
 function GpsCorezoidLoader($className) {
+    global $DS;
     switch($className) {
         case 'PHPMailer\PHPMailer\PHPMailer':
         case 'PHPMailer\PHPMailer\Exception':
@@ -15,6 +17,16 @@ function GpsCorezoidLoader($className) {
             $filePath = PATH_INC . DIRECTORY_SEPARATOR . $className . '.php';
             if (file_exists($filePath)) { require_once($filePath); return; }
             break;
+
+        case 'Firebase\\JWT\\JWT':
+        case 'Firebase\JWT\JWT':
+            PageManager::debug($className, 'JWT_className');
+            $filePath = PATH_VENDOR . $DS . 'firebase' . $DS . 'php-jwt' . $DS . 'src' . $DS . 'JWT.php';
+            if (file_exists($filePath)) {
+                require_once($filePath);
+                return;
+            }
+            break; 
     }
 
     // Try by Name
