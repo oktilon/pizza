@@ -1,5 +1,4 @@
 <?php
-    use \Firebase\JWT\JWT;
     $ret = new ScriptAnswer();
     $pass  = property_exists($this->request, 'h') ? $this->request->h : '';//base64_encode('fJYkscCuZX');
     $login = property_exists($this->request, 'l') ? $this->request->l : '';
@@ -31,7 +30,7 @@
             foreach($info as $row) $ret->data[$row['id']] = $row['val'];
         }
 
-        $jwt = JWT::encode($token, JWT_PRIVATE_KEY, 'RS256');
+        $jwt = JwtToken::encode($token, JWT_PRIVATE_KEY, 'RS256');
         $ret->jwt = $jwt;
     }
 

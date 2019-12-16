@@ -3,7 +3,7 @@
 $DS = DIRECTORY_SEPARATOR;
 define('PATH_INC',  PATH_BASE . $DS . 'include');
 
-function GpsCorezoidLoader($className) {
+function PizzaClassLoader($className) {
     global $DS;
     switch($className) {
         case 'PHPMailer\PHPMailer\PHPMailer':
@@ -61,4 +61,4 @@ function GpsCorezoidLoader($className) {
 }
 
 
-spl_autoload_register('GpsCorezoidLoader');
+spl_autoload_register('PizzaClassLoader');
