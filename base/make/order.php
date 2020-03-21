@@ -9,12 +9,16 @@
     ];
 
     try {
+        $ret->req = $this->request;
+        if(!property_exists($this->request, 'd')) throw new Exception('Invalid request', 400);
+        $body = $this->request->d;
+        $data = json_decode(urldecode(base64_decode($body)));
 
-        if(!property_exists($this->request, 'f') ||
-            !property_exists($this->request, 'c') ||
-            !property_exists($this->request, 'd')) throw new Exception('Invalid arguments', 400);
-        $form = $this->request->f;
-        $cart = $this->request->c;
+        if(!property_exists($data, 'f') ||
+            !property_exists($data, 'c') ||
+            !property_exists($data, 'd')) throw new Exception('Invalid arguments', 400);
+        $form = $data->f;
+        $cart = $data->c;
 
         if(!is_object($form) ||
             !property_exists($form, 'fio') ||
@@ -22,20 +26,22 @@
             !property_exists($form, 'phone')) throw new Exception('Invalid arguments', 400);
         if(!is_array($cart) || count($cart) == 0)  throw new Exception('Invalid arguments', 400);
 
-        $sign = array_key_exists('Signature', $this->headers) ? $this->headers['Signature'] : '';
-        $timeSpan = abs(time() - $this->request->d);
+        $sign = array_key_exists('signature', $this->headers) ? $this->headers['signature'] : '';
+        $timeSpan = abs(time() - $data->d);
 
         if($timeSpan > 1200) throw new Exception('Wrong query date', 400);
-        $dt = date(ORDER_FMT, $this->request->d);
+        $dt = date(ORDER_FMT, $data->d);
+        $key = ORDER_KEY;
+        $fm = base64_encode("{$dt}{$body}{$key}");
 
-        $key = md5($dt . $this->request_body . ORDER_KEY);
+        $key = md5($fm);
         if($key != $sign) throw new Exception('Wrong signature', 400);
 
         $q = $DB->prepare("INSERT INTO orders (ip, name, adr, phone, note) VALUES (:i, :n, :a, :p, :e)")
                 ->bind('i', ip2long($this->remoteIp))
-                ->bind('n', $this->request->f->fio)
-                ->bind('a', $this->request->f->adr)
-                ->bind('p', $this->request->f->phone)
+                ->bind('n', $form->fio)
+                ->bind('a', $form->adr)
+                ->bind('p', $form->phone)
                 ->bind('e', '')
                 ->execute();
         if(!$q) throw new Exception("Store error: " . $DB->error, 500);
@@ -104,8 +110,15 @@
                 'tbl' => $tbl
             ];
 
-            $ok = EmailTemplate::sendTemplate($order_email, 'order', $data, 1, 2);
+            $tmp = EmailTemplate::get('order');
+
+            $ok = mail($order_email, $tmp->getSubject($data), $tmp->getBody($data));
+
+            //$ok = EmailTemplate::sendTemplate($order_email, 'order', $data, 1, 2);
             $ret->m = $ok ? 'ok' : 'err';
+            if(!$ok) {
+                $ret->me = error_get_last()['message'];
+            }
         } else {
             $ret->m = 'no';
         }

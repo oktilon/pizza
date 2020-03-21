@@ -24,7 +24,7 @@ const initialState = Immutable({
     data: {
         email : 'mail@orderpizza.dp.ua',
         adr   : 'г. Днепр, пр. Гагарина, 8ж',
-        phone : '+380 93 713 5868',
+        phone : '+380 00 111 1111',
         order : '',
         telegram : ''
     },
@@ -69,7 +69,8 @@ export default function reduce(state = initialState, action = {}) {
 
         case types.ORDER_RESET:
             return state.merge({
-                order: null
+                order: null,
+                orderError : ''
             });
 
         case types.ORDER_ERROR:

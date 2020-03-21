@@ -60,14 +60,14 @@ export function makeOrder(form, cart) {
             c: cart,
             d: m.unix()
         };
-        const body = JSON.stringify(pd);
-        const sign = md5(`${dt}${body}${cfg.appKey}`);
+        const body = btoa(encodeURIComponent(JSON.stringify(pd)));
+        const sign = md5(btoa(`${dt}${body}${cfg.appKey}`));
 
         dispatch({ type: types.ORDER_BEGIN });
 
         try {
-            axios.post('/make/order', pd,{
-                headers: {'Signature': sign},
+            axios.post('/make/order', { d:body },{
+                headers: {'signature': sign },
             })
                 .then(function (response) {
                     const { oid } = response.data;
@@ -78,7 +78,9 @@ export function makeOrder(form, cart) {
                     }
                 })
                 .catch(function (error) {
-                    const status = error.response.data.status || `error ${error.response.status}`;
+                    const status = error && error.hasOwnProperty('response') ?
+                        (error.response.hasOwnProperty('data') && error.response.data.hasOwnProperty('status') ? error.response.data.status : (
+                            error.response.hasOwnProperty('status') ? `error ${error.response.status}` : 'Network error')) : 'Network error';
                     dispatch({ type: types.ORDER_ERROR, status });
                 })
                 .finally(function () {

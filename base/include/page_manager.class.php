@@ -30,6 +30,7 @@ class PageManager {
     public $user = null;
 
     public $html     = '';
+    public $code     = 0;
     public $request_body  = '';
     public $request  = null;
     public $rendered = false;
@@ -616,6 +617,9 @@ class PageManager {
     }
 
     public function output() {
+        if($this->code) {
+            http_response_code($this->code);
+        }
         if($this->mime) {
             header("Content-type: {$this->mime}");
         }
@@ -637,6 +641,9 @@ class PageManager {
             } else {
                 if(!$parsed) $obj->dbg = self::$dbg;
             }
+        }
+        if(is_object($obj) && is_a($obj, 'ScriptAnswer')) {
+            $this->code = $obj->getCode();
         }
         $this->html = $parsed ? $obj : json_encode($obj, JSON_UNESCAPED_UNICODE);
         if($this->html == FALSE) {
@@ -687,7 +694,7 @@ class PageManager {
 
     public function remove($name) {
         if(isset($this->data[$name])) {
-            delete($this->data[$name]);
+            unset($this->data[$name]);
             return true;
         }
         return false;

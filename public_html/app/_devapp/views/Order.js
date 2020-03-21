@@ -62,6 +62,8 @@ class Order extends React.Component {
     this.handleCloseMessage = this.handleCloseMessage.bind(this);
     this.handleDeleteItem = this.handleDeleteItem.bind(this);
 
+    this.errorTimeout = 0;
+
     this.state = {
       fio: '',
       phone: '',
@@ -69,6 +71,16 @@ class Order extends React.Component {
       initFio: true,
       initPhone: true
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { orderError } = this.props;
+    if(prevProps.orderError == '' && orderError != '') {
+      if(this.errorTimeout) clearTimeout(this.errorTimeout);
+      this.errorTimeout = setTimeout(() => {
+        this.handleCloseMessage();
+      }, 8000);
+    }
   }
 
   onChangeName(ev) {

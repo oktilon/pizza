@@ -78,6 +78,11 @@ class EmailTemplate {
         return $tmp->send($user, $data, $who, $debug);
     }
 
+    /**
+     * GetTemplate
+     * @param mixed Template id/name
+     * @return EmailTemplate
+     */
     public static function get($id = 0) {
         if(!isset(self::$cache[$id])) {
             self::$cache[$id] = new EmailTemplate($id);

@@ -38,7 +38,8 @@ class Email {
     * @param integer Режим отладки (вывод сообщений) 0=Выкл, 1=Клиент, 2=Клиент и Сервер
     * @return Email
     */
-	function __construct($senderName = 'Sender Control', $senderAddr = '', $tmp = null, $data = [], $who = 1, $debug = 0) { // test debug = 2
+    function __construct($senderName = 'Sender Control', $senderAddr = '', $tmp = null, $data = [], $who = 1, $debug = 0) { // test debug = 2
+        global $DB;
         //date_default_timezone_set('Etc/UTC');
         $this->dt = new DateTime();
         $this->dt_open = new DateTime('2000-01-01');
