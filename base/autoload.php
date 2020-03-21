@@ -20,7 +20,7 @@ function PizzaClassLoader($className) {
 
         case 'Firebase\\JWT\\JWT':
         case 'Firebase\JWT\JWT':
-            PageManager::debug($className, 'JWT_className');
+            // PageManager::debug($className, 'JWT_className');
             $filePath = PATH_VENDOR . $DS . 'firebase' . $DS . 'php-jwt' . $DS . 'src' . $DS . 'JWT.php';
             if (file_exists($filePath)) {
                 require_once($filePath);
